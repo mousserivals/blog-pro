@@ -1,0 +1,13 @@
+{
+    "name": "steph/blog-pro",
+    "description": "project openclassroom",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mousserivals",
+            "email": "fitoussitephane@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
