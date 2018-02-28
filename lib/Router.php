@@ -6,9 +6,19 @@ use Lib\Route;
 
 class Router {
     
-    public function getUrl($url) {
-        
-        $list =  explode("/", $url);
+    
+    /**
+     * @var string
+     */
+    private $url;
+    
+    public function __construct($url) {
+        $this->url = $url;
+    }
+    
+    public function getUrl() {
+
+        $list =  explode("/", $this->url);
         $route = new Route();
         $f = $route->verifRoute($list);
 
