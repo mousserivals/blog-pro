@@ -4,71 +4,70 @@ namespace Lib\Router;
 
 class Route {
 
-    protected $action;
-    protected $module;
-    protected $url;
-    protected $varsNames;
-    protected $vars = [];
+    /**
+     * @var string
+     */
+    private $path;
+    /**
+     * @var string
+     */
+    private $callable;
+    
+    /**
+     * @var array
+     */
+    private $matches = [];
+    
+    /**
+     * @var array
+     */
+    private $params = [];
 
-    public function __construct($url, $module, $action, array $varsNames) {
-        $this->setUrl($url);
-        $this->setModule($module);
-        $this->setAction($action);
-        $this->setVarsNames($varsNames);
+    public function __construct($path, $callable) {
+
+        $this->path = trim($path, '/');
+        $this->callable = $callable;
     }
 
-    public function hasVars() {
-        return !empty($this->varsNames);
+    public function with($param, $regex) {
+        $this->params[$param] = str_replace('(', '(?:', $regex);
+        return $this;
     }
 
     public function match($url) {
-        if (preg_match('`^' . $this->url . '$`', $url, $matches)) {
-            return $matches;
+
+        $url = trim($url, '/');
+        $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
+        $regex = "#^$path$#i";
+        if (!preg_match($regex, $url, $matches)) {
+            return FALSE;
+        }
+        /**
+         * permet de retirer la premiere occurence
+         */
+        array_shift($matches);
+        $this->matches = $matches;
+
+        return true;
+    }
+
+    private function paramMatch($match) {
+        if (isset($this->params[$match[1]])) {
+            
+            return '(' . $this->params[$match[1]] . ')';
+        }
+        return '([^/]+)';
+    }
+
+    public function call() {
+        if (is_string($this->callable)) {
+            $params = explode("#", $this->callable);
+            echo 'Controller ' .$params[0]. ' et action ' .$params[1] ;
         } else {
-            return false;
+            return call_user_func_array($this->callable, $this->matches);
         }
-    }
-
-    public function setAction($action) {
-        if (is_string($action)) {
-            $this->action = $action;
-        }
-    }
-
-    public function setModule($module) {
-        if (is_string($module)) {
-            $this->module = $module;
-        }
-    }
-
-    public function setUrl($url) {
-        if (is_string($url)) {
-            $this->url = $url;
-        }
-    }
-
-    public function setVarsNames(array $varsNames) {
-        $this->varsNames = $varsNames;
-    }
-
-    public function setVars(array $vars) {
-        $this->vars = $vars;
-    }
-
-    public function action() {
-        return $this->action;
-    }
-
-    public function module() {
-        return $this->module;
-    }
-
-    public function vars() {
-        return $this->vars;
-    }
-
-    public function varsNames() {
-        return $this->varsNames;
+        
+        
     }
 
 }
