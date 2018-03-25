@@ -62,7 +62,11 @@ class Route {
     public function call() {
         if (is_string($this->callable)) {
             $params = explode("#", $this->callable);
-            echo 'Controller ' .$params[0]. ' et action ' .$params[1] ;
+          //  echo 'Controller ' .$params[0]. ' et action ' .$params[1] ;
+            $controller = "src\\Controller\\". $params[0]."Controller";
+            $controller = new $controller();
+            $action = $params[1]();
+            return $controller->$action();
         } else {
             return call_user_func_array($this->callable, $this->matches);
         }
@@ -70,4 +74,11 @@ class Route {
         
     }
 
+    public function getUrl($params) {
+        $path = $this->path;
+        foreach ($params as $k => $v) {
+            $path = str_replace(":k", $v, $path);
+        }
+        return $path;
+    }
 }

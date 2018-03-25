@@ -49,4 +49,11 @@ class Router {
         throw new \Exception('No routes matches');
     }
 
+    public function url($nameRoute, $params = []) {
+        if (!isset($this->namedRoutes[$nameRoute])) {
+            throw new \Exception('No routes');
+        }
+        
+        return $this->namedRoutes[$name]->getUrl($params);
+    }
 }
