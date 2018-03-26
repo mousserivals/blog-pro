@@ -4,14 +4,20 @@ namespace Lib;
 
 abstract class Application {
 
-    protected $Request;
+    protected $request;
+    protected $name;
 
     public function __construct() {
-        $this->httpRequest = new Request;
+        $this->request = new Request();
+        $this->name = '';
     }
 
     public function Request() {
-        return $this->Request;
+        return $this->request;
+    }
+
+    public function name() {
+        return $this->name;
     }
 
 }
