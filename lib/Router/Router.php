@@ -35,8 +35,7 @@ class Router {
         return $route;
     }
 
-    public function run() {
-        $request = new Request();
+    public function run(Request $request) {
 
         if (!isset($this->routes[$request->method()])) {
             throw new \Exception('REQUEST_METHOD does not exist');

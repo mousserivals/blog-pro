@@ -2,22 +2,38 @@
 
 namespace Lib;
 
-abstract class Application {
+use Lib\Router\Router;
+use Lib\Controller;
+
+class Application {
 
     protected $request;
-    protected $name;
 
     public function __construct() {
         $this->request = new Request();
-        $this->name = '';
-    }
 
-    public function Request() {
-        return $this->request;
     }
+    
+    public function appRun() {
 
-    public function name() {
-        return $this->name;
+        $router = new Router();
+
+        $router->get('/', function() {
+            echo 'Homepage';
+        });
+        $router->get('/posts', function() {
+            echo 'Tous les articles';
+        });
+        $router->get('/posts/:id-:slug', function($id, $slug) {
+                    echo "Afficher $slug : $id";
+                }, 'post.show')->with('id', '[0-9]+')
+                ->with('slug', '[a-z\-0-9]+');
+        $router->get('/posts/:id', 'Posts#show', 'post.show');
+
+        $router->post('/posts/:id', function($id) {
+            echo 'Poster l\'articles ' . $id;
+        });
+        $router->run($this->request);
     }
 
 }

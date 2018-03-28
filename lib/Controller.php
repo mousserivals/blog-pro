@@ -2,7 +2,7 @@
 
 namespace Lib;
 
-class Controller extends Application {
+abstract class Controller{
 
     private $request;
     private $router;
@@ -14,13 +14,13 @@ class Controller extends Application {
       //  $this->database = '';
     }
 
-    public function render($nameRoute, $params = []) {
-        
-       return $this->router->url($nameRoute, $param);
+    public function render($nameView, $params = []) {
+       $view =  __DIR__.'/../../src/Views/'.$nameView;
+       return $view;
     }
 
-    public function redirect($location) {
-        header('Location: ' . $location);
+    public function redirect($nameRoute, $params = []) {
+        header('Location: ' . $this->router->url($nameRoute, $params));
         exit;
     }
     

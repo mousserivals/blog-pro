@@ -62,7 +62,8 @@ class Route {
     public function call() {
         if (is_string($this->callable)) {
             $params = explode("#", $this->callable);
-          //  echo 'Controller ' .$params[0]. ' et action ' .$params[1] ;
+            echo 'Controller ' .$params[0]. ' et action ' .$params[1] ;
+            exit();
             $controller = "src\\Controller\\". $params[0]."Controller";
             $controller = new $controller();
             $action = $params[1]();
