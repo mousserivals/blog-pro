@@ -2,22 +2,25 @@
 
 namespace Lib\Router;
 
+use Lib\Request;
+
 class Route {
 
     /**
      * @var string
      */
     private $path;
+
     /**
      * @var string
      */
     private $callable;
-    
+
     /**
      * @var array
      */
     private $matches = [];
-    
+
     /**
      * @var array
      */
@@ -53,26 +56,28 @@ class Route {
 
     private function paramMatch($match) {
         if (isset($this->params[$match[1]])) {
-            
+
             return '(' . $this->params[$match[1]] . ')';
         }
         return '([^/]+)';
     }
 
-    public function call() {
+    /**
+     * @param Request $request
+     * @param Router $router
+     */
+    public function call(Request $request) {
+        $router = new Router();
         if (is_string($this->callable)) {
             $params = explode("#", $this->callable);
-            echo 'Controller ' .$params[0]. ' et action ' .$params[1] ;
-            return false;
-            $controller = "src\\Controller\\". $params[0]."Controller";
-            $controller = new $controller();
+            $controller = "Src\\Controller\\" . $params[0] . "Controller";
+
+            $controller = new $controller($request , $router);
             $action = $params[1]();
             return $controller->$action();
         } else {
             return call_user_func_array($this->callable, $this->matches);
         }
-        
-        
     }
 
     public function getUrl($params) {
@@ -82,4 +87,5 @@ class Route {
         }
         return $path;
     }
+
 }

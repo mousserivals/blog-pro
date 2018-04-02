@@ -13,7 +13,7 @@
     "autoload": {
         "psr-4": {
             "Lib\\": "lib",
-            "": "src"
+            "Src\\": "src"
         }
     }
 }

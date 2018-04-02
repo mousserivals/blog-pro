@@ -42,7 +42,7 @@ class Router {
         }
         foreach ($this->routes[$request->method()] as $route) {
             if ($route->match($request->requestURI())) {
-                return $route->call();
+                return $route->call($request);
             }
         }
         throw new \Exception('No routes matches');
