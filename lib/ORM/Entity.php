@@ -2,16 +2,18 @@
 
 namespace Lib\ORM;
 
+
+
 abstract class Entity{
 
     protected $erreurs = [],
               $id;
 
-    public function __construct(array $donnees = []) {
-        if (!empty($donnees)) {
-            $this->hydrate($donnees);
-        }
-    }
+//    public function __construct(array $donnees = []) {
+//        if (!empty($donnees)) {
+//            $this->hydrate($donnees);
+//        }
+//    }
 
     
     public function isNew() {

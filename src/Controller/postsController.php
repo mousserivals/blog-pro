@@ -7,9 +7,10 @@ use Src\Entity\postsEntity;
 class postsController extends Controller {
     
     function show($id) {
-        
-        $post = $this->database()->getManagerOf("posts");
-        
+//        ->query('SELECT * FROM article');
+        var_dump($id);
+        $post = $this->database()->getManagerOf('Post')->getUnique(1);
+
         var_dump($post);
         exit();
     }

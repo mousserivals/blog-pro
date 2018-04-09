@@ -2,18 +2,21 @@
 
 namespace Lib;
 
-use Lib\ORM\Managers;
+use Lib\ORM\Manager;
+use Lib\ORM\PDOFactory;
+use Lib\Router\Router;
 
 abstract class Controller {
 //
     private $request;
-//    private $router;
+    private $router;
     private $database;
 
     public function __construct(Request $request , Router $router ) {
+
         $this->request = $request;
         $this->router = $router;
-        $this->database = new Managers('PDO', PDOFactory::getMysqlConnexion());
+        $this->database = new Manager(PDOFactory::getMysqlConnexion());
     }
 
     public function render($nameView, $params = []) {

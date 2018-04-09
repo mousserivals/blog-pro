@@ -66,17 +66,16 @@ class Route {
      * @param Request $request
      * @param Router $router
      */
-    public function call(Request $request) {
-        $router = new Router();
+    public function call(Request $request, Router $router) {
+
         if (is_string($this->callable)) {
             $params = explode("#", $this->callable);
             $controller = "Src\\Controller\\" . $params[0] . "Controller";
+            $controller = new $controller($request,$router);
 
-            $controller = new $controller($request , $router);
-            $action = $params[1]();
-            return $controller->$action();
+            return call_user_func_array([$controller,  $params[1]], $this->matches);
         } else {
-            return call_user_func_array($this->callable, $this->matches);
+            throw new \Exception('callable does not string');
         }
     }
 
