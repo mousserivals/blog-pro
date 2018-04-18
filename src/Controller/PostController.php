@@ -1,11 +1,22 @@
 <?php
+
 namespace Src\Controller;
 
 use Lib\Controller;
-use Src\Entity\postsEntity;
+use Src\Entity\Post;
+use Src\Manager\PostManager;
 
-class postsController extends Controller {
-    
+class PostController extends Controller {
+
+    function home() {
+        echo 'homepage';
+    }
+
+    function index() {
+
+        echo 'index';
+    }
+
     function show($id) {
 //        ->query('SELECT * FROM article');
         var_dump($id);
@@ -14,7 +25,5 @@ class postsController extends Controller {
         var_dump($post);
         exit();
     }
-    
-    
-    
+
 }

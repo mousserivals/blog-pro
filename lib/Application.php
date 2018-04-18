@@ -18,16 +18,9 @@ class Application {
     
     public function appRun() {
 
-        $this->router->get('/', function() {
-            echo 'Homepage';
-        });
-        $this->router->get('/posts', function() {
-            echo 'Tous les articles';
-        });
-        $this->router->get('/posts', function() {
-            echo 'Tous les articles';
-        });
-        $this->router->get('/posts/:id', 'posts#show', 'post.show');
+        $this->router->get('/', 'Post#home', 'Post.home');
+        $this->router->get('/posts', 'Post#index', 'Post.index');
+        $this->router->get('/posts/:id', 'Post#show', 'Post.show');
         $this->router->get('/posts/:id-:slug', function($id, $slug) {
                     echo "Afficher $slug : $id";
                 }, 'post.show')->with('id', '[0-9]+')

@@ -9,11 +9,12 @@ abstract class Entity{
     protected $erreurs = [],
               $id;
 
-//    public function __construct(array $donnees = []) {
-//        if (!empty($donnees)) {
-//            $this->hydrate($donnees);
-//        }
-//    }
+    public function __construct(array $donnees = []) {
+        var_dump($donnees);        exit();
+        if (!empty($donnees)) {
+            $this->hydrate($donnees);
+        }
+    }
 
     
     public function isNew() {
@@ -22,14 +23,6 @@ abstract class Entity{
 
     public function erreurs() {
         return $this->erreurs;
-    }
-
-    public function getId() {
-        return $this->id;
-    }
-
-    public function setId($id) {
-        $this->id = (int) $id;
     }
 
     public function hydrate(array $donnees) {
