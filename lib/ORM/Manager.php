@@ -6,7 +6,7 @@ class Manager {
 
     protected $dao = null;
     protected $managers = [];
-    private $datascructure = [];
+    protected $dataStructure = [];
 
     public function __construct($dao) {
         
@@ -14,20 +14,31 @@ class Manager {
     }
 
     public function getManagerOf($manager) {
+
+        $entityName = explode("\\", $manager);
         if (!is_string($manager) || empty($manager)) {
             throw new \InvalidArgumentException('Le entité spécifié est invalide');
         }
         
         if (!isset($this->managers[$manager])) {
-            $this->datascructure = 'Src\\Entity\\' .$manager::dataStructure();
-            $manager = 'Src\\Manager\\' . $manager . 'Manager';
+          //  $entity = new Entity($manager::dataStructure());
+            var_dump($entity);
+            $this->dataStructure = $manager::dataStructure();
+            var_dump($this->dataStructure);
+            $manager = 'Src\\Manager\\' . $entityName[2] . 'Manager';
             $this->managers[$manager] = new $manager($this->dao);
+            
         }
-        var_dump($this->datascructure); exit();
         return $this->managers[$manager];
     }
 
     public function getList($debut = -1, $limite = -1) {
+        var_dump($this->dataStructure);
+        foreach ($this->dataStructure as $key => $value) {
+            var_dump($key);
+            var_dump($value);
+            exit();
+        }
         $sql = 'SELECT id, title, content, date FROM article ORDER BY id DESC';
 
         if ($debut != -1 || $limite != -1) {

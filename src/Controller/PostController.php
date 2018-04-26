@@ -20,10 +20,10 @@ class PostController extends Controller {
     function show($id) {
 //        ->query('SELECT * FROM article');
         var_dump($id);
-        $post = $this->database()->getManagerOf('Post')->getUnique(1);
+        $post = $this->database()->getManagerOf(Post::class)->getList(1,10);
 
-        var_dump($post);
-        exit();
+     //   var_dump($post);
+     //   exit();
     }
 
 }
