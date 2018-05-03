@@ -9,13 +9,15 @@ abstract class Entity{
     protected $erreurs = [],
               $id;
 
-    public function __construct(array $donnees = []) {
-        var_dump($donnees);        exit();
-        if (!empty($donnees)) {
-            $this->hydrate($donnees);
-        }
+    public function __construct() {
+
     }
 
+    
+    /**
+     * @return array
+     */
+    public abstract static function dataStructure();
     
     public function isNew() {
         return empty($this->id);
@@ -26,6 +28,7 @@ abstract class Entity{
     }
 
     public function hydrate(array $donnees) {
+        
         foreach ($donnees as $attribut => $valeur) {
             $methode = 'set' . ucfirst($attribut);
 

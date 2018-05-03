@@ -16,7 +16,7 @@ abstract class Controller {
 
         $this->request = $request;
         $this->router = $router;
-        $this->database = new Manager(PDOFactory::getMysqlConnexion());
+        $this->database = new PDOFactory();
     }
 
     public function render($nameView, $params = []) {

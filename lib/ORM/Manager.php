@@ -4,48 +4,34 @@ namespace Lib\ORM;
 
 class Manager {
 
-    protected $dao = null;
+    protected $pdo = null;
     protected $managers = [];
-    protected $dataStructure = [];
 
-    public function __construct($dao) {
+    public function __construct($pdo ,$entity) {
         
-        $this->dao = $dao;
+        $this->pdo = $pdo;
     }
 
-    public function getManagerOf($manager) {
-
-        $entityName = explode("\\", $manager);
-        if (!is_string($manager) || empty($manager)) {
-            throw new \InvalidArgumentException('Le entité spécifié est invalide');
-        }
-        
-        if (!isset($this->managers[$manager])) {
-          //  $entity = new Entity($manager::dataStructure());
-            var_dump($entity);
-            $this->dataStructure = $manager::dataStructure();
-            var_dump($this->dataStructure);
-            $manager = 'Src\\Manager\\' . $entityName[2] . 'Manager';
-            $this->managers[$manager] = new $manager($this->dao);
-            
-        }
-        return $this->managers[$manager];
+    public function findAll() {
+        $query = 'select * form :table ';
+        $this->pdo->prepare($query, array(\PDO::FETCH_OBJ));
+        $this->pdo->excecute(array(':table' => 150));
     }
-
+    
     public function getList($debut = -1, $limite = -1) {
-        var_dump($this->dataStructure);
-        foreach ($this->dataStructure as $key => $value) {
-            var_dump($key);
-            var_dump($value);
-            exit();
-        }
+//        var_dump($this->dataStructure);
+//        foreach ($this->dataStructure as $key => $value) {
+//            var_dump($key);
+//            var_dump($value);
+//            exit();
+//        }
         $sql = 'SELECT id, title, content, date FROM article ORDER BY id DESC';
 
         if ($debut != -1 || $limite != -1) {
             $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
         }
 
-        $requete = $this->dao->query($sql);
+        $requete = $this->pdo->query($sql);
         $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\postEntity');
 
         $listePosts = $requete->fetchAll();
@@ -57,7 +43,7 @@ class Manager {
 
     public function getUnique($id) {
 
-        $requete = $this->dao->prepare('SELECT id,  title, content, date FROM article WHERE id = :id');
+        $requete = $this->pdo->prepare('SELECT id,  title, content, date FROM article WHERE id = :id');
         $requete->bindValue(':id', (int) $id, \PDO::PARAM_INT);
         $requete->execute();
         $result = $requete->fetchAll(\PDO::FETCH_OBJ);
@@ -65,11 +51,11 @@ class Manager {
     }
 
     public function count() {
-        return $this->dao->query('SELECT COUNT(*) FROM article')->fetchColumn();
+        return $this->pdo->query('SELECT COUNT(*) FROM article')->fetchColumn();
     }
 
     protected function add(Posts $posts) {
-        $requete = $this->dao->prepare('INSERT INTO article SET title = :title, content = :content,date = NOW()');
+        $requete = $this->pdo->prepare('INSERT INTO article SET title = :title, content = :content,date = NOW()');
 
         $requete->bindValue(':title', $posts->title());
         $requete->bindValue(':content', $posts->content());
@@ -78,7 +64,7 @@ class Manager {
     }
 
     protected function modify(Posts $posts) {
-        $requete = $this->dao->prepare('UPDATE article SET title = :title, content = :content, date = NOW() WHERE id = :id');
+        $requete = $this->pdo->prepare('UPDATE article SET title = :title, content = :content, date = NOW() WHERE id = :id');
 
         $requete->bindValue(':title', $posts->title());
         $requete->bindValue(':content', $posts->content());

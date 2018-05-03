@@ -6,15 +6,16 @@ use Lib\ORM\Entity;
 
 class Post extends Entity {
     
-    private $id;
-    private $title;
-    private $content;
-    private $categoryId;
-    private $date;
+    public $id;
+    public $title;
+    public $content;
+    public $categoryId;
+    public $date;
 
     public static function dataStructure() {
         return [
             "table" => "article",
+            "manager" => "Src\Manager\PostManager",
             "primaryKey" => "id",
             "columns" => [
                 "id" => [
