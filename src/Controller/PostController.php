@@ -20,13 +20,15 @@ class PostController extends Controller {
     function show($id) {
 //        ->query('SELECT * FROM article');
 //        var_dump($this->database()->getManagerOf(Post::class)); exit();
-        $post = $this->database()->getManagerOf(Post::class);
-
-        var_dump($post);
-        var_dump($post::dataStructure());
-        $ds = $post::dataStructure();
-       // var_dump($post->hidrate($ds));
-//        var_dump($post->hidrate($post));
+        $post = new Post();
+        $post->getTitle("title");
+        $post->getContent("title");
+        $post->getCategoryId(1);
+        $post->getDate(date("Y-m-d H:i:s"));
+        
+        
+        $postManager = $this->database()->getManagerOf(Post::class)->add($post);
+        var_dump($postManager);
         exit();
     }
 

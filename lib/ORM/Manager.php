@@ -2,12 +2,13 @@
 
 namespace Lib\ORM;
 
+use Lib\ORM\PDOFactory;
+
 class Manager {
 
     protected $pdo = null;
-    protected $managers = [];
 
-    public function __construct($pdo ,$entity) {
+    public function __construct($pdo ) {
         
         $this->pdo = $pdo;
     }
@@ -54,16 +55,30 @@ class Manager {
         return $this->pdo->query('SELECT COUNT(*) FROM article')->fetchColumn();
     }
 
-    protected function add(Posts $posts) {
+    public function add(Entity $entity) {
+        
+//        $this->managers($entity);
+//        var_dump($entity::dataStructure());
+
+//        if (true) {
+//            
+//        }
+        var_dump($entity);
+        foreach ($entity::dataStructure()['columns'] as $key => $value) {
+        var_dump($key);
+        var_dump($value);
+            exit();
+        }
         $requete = $this->pdo->prepare('INSERT INTO article SET title = :title, content = :content,date = NOW()');
 
-        $requete->bindValue(':title', $posts->title());
-        $requete->bindValue(':content', $posts->content());
+        $requete->bindValue(':title', $entity->title());
+        $requete->bindValue(':content', $entity->content());
 
         $requete->execute();
     }
 
-    protected function modify(Posts $posts) {
+    public function modify(Entity $entity) {
+
         $requete = $this->pdo->prepare('UPDATE article SET title = :title, content = :content, date = NOW() WHERE id = :id');
 
         $requete->bindValue(':title', $posts->title());
@@ -72,5 +87,9 @@ class Manager {
 
         $requete->execute();
     }
-
+    
+    public function delect($param) {
+        
+    }
+    
 }
