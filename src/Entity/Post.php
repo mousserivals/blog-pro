@@ -30,7 +30,7 @@ class Post extends Entity {
                     "type" => "string",
                     "property" => "content"
                 ],
-                "categoryId" => [
+                "category_id" => [
                     "type" => "integer",
                     "property" => "categoryId"
                 ],
