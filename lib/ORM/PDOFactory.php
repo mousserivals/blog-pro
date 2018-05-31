@@ -2,12 +2,11 @@
 
 namespace Lib\ORM;
 
-
+use Lib\ORM\Manager;
 
 class PDOFactory {
 
-    private $entity;
-    public $managers;
+    public $managers = [];
 
     public static function getMysqlConnexion() {
         $db = new \PDO('mysql:host=localhost;dbname=blog-pro', 'steph', 'Steph@555@ane');
@@ -17,28 +16,22 @@ class PDOFactory {
     }
 
     public function getManagerOf($entity) {
+
         $class = new \ReflectionClass($entity);
-//        var_dump($class->getParentClass());
-//        var_dump($class->getName());
-//        var_dump($class->getNamespaceName());
-//        var_dump($class->getShortName());
-//        var_dump($class->getParentClass()->getName());
-        
+
         if ($class->getParentClass()->getName() !== Entity::class) {
             throw new ORMException("Cette classe n'est pas une entité.");
         }
-        
         if (!is_string($entity) || empty($entity)) {
             throw new \InvalidArgumentException('Le entité spécifié est invalide');
         }
 
+       
         if (!isset($this->managers[$entity])) {
-//            var_dump($entity::dataStructure());
-//            exit();
             $manager = $entity::dataStructure()['manager'];
-                $this->managers[$entity] = new $manager($this);    
+            $this->managers[$entity] = new $manager($entity);
         }
-        
+
         return $this->managers[$entity];
     }
 

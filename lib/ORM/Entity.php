@@ -28,14 +28,17 @@ abstract class Entity{
     }
 
     public function hydrate(array $donnees) {
-        
-        foreach ($donnees as $attribut => $valeur) {
-            $methode = 'set' . ucfirst($attribut);
 
+        foreach ($donnees as $attribut => $valeur) {      
+            $methode = 'set' . ucfirst($attribut);
+            var_dump($methode);
+            var_dump($valeur);
             if (is_callable([$this, $methode])) {
                 $this->$methode($valeur);
+                 var_dump("tst");
             }
-        }
+        }      
+        return $this;
     }
 
     

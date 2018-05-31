@@ -5,7 +5,7 @@ namespace Src\Entity;
 use Lib\ORM\Entity;
 
 class Post extends Entity {
-    
+
     public $id;
     public $title;
     public $content;
@@ -41,13 +41,12 @@ class Post extends Entity {
             ]
         ];
     }
-    
+
     function getId() {
         return $this->id;
     }
 
-
-        function getTitle() {
+    function getTitle() {
         return $this->title;
     }
 
@@ -62,7 +61,7 @@ class Post extends Entity {
     function getDate() {
         return $this->date;
     }
-    
+
     function setId($id) {
         $this->id = $id;
     }
@@ -83,7 +82,4 @@ class Post extends Entity {
         $this->date = $date;
     }
 
-    
-    
-    
 }
