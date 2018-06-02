@@ -35,14 +35,15 @@ class Router {
         return $route;
     }
 
-    public function run(Request $request) {
+    public function getRoute(Request $request,Router $router) {
 
         if (!isset($this->routes[$request->method()])) {
             throw new \Exception('REQUEST_METHOD does not exist');
         }
         foreach ($this->routes[$request->method()] as $route) {
             if ($route->match($request->requestURI())) {
-                return $route->call();
+                
+                return $route->call($request, $router);
             }
         }
         throw new \Exception('No routes matches');
