@@ -66,7 +66,7 @@ class Comment extends Entity {
         $this->id = $id;
     }
 
-    function setPost($post) {
+    function setPostId($post) {
         $this->post = $post;
     }
 

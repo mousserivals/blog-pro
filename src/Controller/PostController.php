@@ -13,7 +13,8 @@ class PostController extends Controller {
     }
 
     function index() {
-
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->find(1);
         echo 'index';
     }
 
