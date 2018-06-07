@@ -20,8 +20,9 @@ class Manager {
     public function findAll(Entity $entity) {
         $requete = $this->pdo->query("select * from " . $this->datastructure["table"]);
         $data = $requete->fetchAll(\PDO::FETCH_OBJ);
-
-        return $data;
+        return array_map(function($row) {
+            return (new $this->entity())->hydrate($row);
+        }, $data);
     }
 
     public function find($id) {
@@ -30,9 +31,6 @@ class Manager {
         $requete = $this->pdo->prepare($query);
         $requete->execute(array(":table" => $this->datastructure["table"], ":id" => $id));
         $result = $requete->fetch(\PDO::FETCH_ASSOC);
-        $instance = new $this->entity();
-
-        $instance->hydrate($result, $this->datastructure);
         return (new $this->entity())->hydrate($result);
     }
 
