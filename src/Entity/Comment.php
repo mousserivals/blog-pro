@@ -34,9 +34,9 @@ class Comment extends Entity {
                     "type" => "string",
                     "property" => "content"
                 ],
-                "date" => [
+                "date_created" => [
                     "type" => "datetime",
-                    "property" => "date"
+                    "property" => "dateCreated"
                 ]
             ]
         ];
@@ -58,8 +58,8 @@ class Comment extends Entity {
         return $this->content;
     }
 
-    function getDate() {
-        return $this->date;
+    function getDateCreated() {
+        return $this->dateCreated;
     }
 
     function setId($id) {
@@ -78,8 +78,8 @@ class Comment extends Entity {
         $this->content = $content;
     }
 
-    function setDate($date) {
-        $this->date = $date;
+    function setDateCreated($date) {
+        $this->dateCreated = $date;
     }
 
 }

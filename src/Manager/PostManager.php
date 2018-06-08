@@ -11,20 +11,20 @@ class PostManager extends Manager {
 
         $query = sprintf("SELECT * FROM %s WHERE user_id= %s", $this->datastructure["table"], $id);
         $requete = $this->pdo->prepare($query);
-        $requete->execute(array(":table" => $this->datastructure["table"], ":id" => $id));
-        $result = $requete->fetch(\PDO::FETCH_ASSOC);
+        $requete->execute(array(":table" => $this->datastructure["table"], ":user_id" => $id));
+        $result = $requete->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $result;
+        return $this->getHydrateAll($result);
     }
 
     public function postByCategory($id) {
 
-        $query = sprintf("SELECT * FROM %s WHERE post_id= %s", $this->datastructure["table"], $id);
+        $query = sprintf("SELECT * FROM %s WHERE category_id= %s", $this->datastructure["table"], $id);
         $requete = $this->pdo->prepare($query);
-        $requete->execute(array(":table" => $this->datastructure["table"], ":id" => $id));
-        $result = $requete->fetch(\PDO::FETCH_ASSOC);
+        $requete->execute(array(":table" => $this->datastructure["table"], ":category_id" => $id));
+        $result = $requete->fetchAll(\PDO::FETCH_ASSOC);
 
-        return $result;
+        return $this->getHydrateAll($result);
     }
 
 }

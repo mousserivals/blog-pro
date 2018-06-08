@@ -4,6 +4,8 @@ namespace Src\Controller;
 
 use Lib\Controller;
 use Src\Entity\Post;
+use Src\Entity\Category;
+use Src\Entity\Comment;
 use Src\Manager\PostManager;
 
 class PostController extends Controller {
@@ -13,8 +15,10 @@ class PostController extends Controller {
     }
 
     function index() {
-        $manager = $this->database()->getManagerOf(Post::class);
-        $article = $manager->find(1);
+        $manager = $this->database()->getManagerOf(Comment::class);
+        $article = $manager->commentByPost(1);
+        var_dump($article);
+        exit();
         echo 'index';
     }
 

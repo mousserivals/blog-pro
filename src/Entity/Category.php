@@ -11,7 +11,7 @@ class Category extends Entity {
 
     public static function dataStructure() {
         return [
-            "table" => "cartegorie",
+            "table" => "categorie",
             "manager" => "Src\Manager\CategoryManager",
             "primaryKey" => "id",
             "columns" => [

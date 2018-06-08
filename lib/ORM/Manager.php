@@ -7,8 +7,8 @@ use Lib\ORM\PDOFactory;
 class Manager {
 
     protected $pdo = null;
-    private $entity;
-    private $datastructure;
+    protected $entity;
+    protected $datastructure;
 
     public function __construct($entity) {
 
@@ -17,12 +17,20 @@ class Manager {
         $this->datastructure = $this->entity::dataStructure();
     }
 
-    public function findAll(Entity $entity) {
-        $requete = $this->pdo->query("select * from " . $this->datastructure["table"]);
-        $data = $requete->fetchAll(\PDO::FETCH_OBJ);
+    protected function getHydrate($data) {
+        return (new $this->entity())->hydrate($data);
+    }
+
+    protected function getHydrateAll($data) {
         return array_map(function($row) {
             return (new $this->entity())->hydrate($row);
         }, $data);
+    }
+
+    public function findAll() {
+        $requete = $this->pdo->query("select * from " . $this->datastructure["table"]);
+        $data = $requete->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->getHydrateAll($data);
     }
 
     public function find($id) {
@@ -31,7 +39,7 @@ class Manager {
         $requete = $this->pdo->prepare($query);
         $requete->execute(array(":table" => $this->datastructure["table"], ":id" => $id));
         $result = $requete->fetch(\PDO::FETCH_ASSOC);
-        return (new $this->entity())->hydrate($result);
+        return $this->getHydrate($result);
     }
 
     public function add(Entity $entity) {
@@ -81,7 +89,7 @@ class Manager {
         $query = sprintf("DELETE FROM %s WHERE %s = :id", $entity::dataStructure()["table"], $entity::dataStructure()["primaryKey"]);
         $requete = $this->pdo->prepare($query);
         $requete->execute([$entity::dataStructure()["primaryKey"] => $entity->id]);
-        
+
         return true;
     }
 

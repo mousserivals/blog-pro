@@ -22,6 +22,10 @@ class Post extends Entity {
                     "type" => "integer",
                     "property" => "id"
                 ],
+                "user_id" => [
+                    "type" => "string",
+                    "property" => "userId"
+                ],
                 "title" => [
                     "type" => "string",
                     "property" => "title"
@@ -34,9 +38,9 @@ class Post extends Entity {
                     "type" => "integer",
                     "property" => "categoryId"
                 ],
-                "date" => [
+                "date_created" => [
                     "type" => "datetime",
-                    "property" => "date"
+                    "property" => "dateCreated"
                 ]
             ]
         ];
@@ -50,6 +54,9 @@ class Post extends Entity {
         return $this->title;
     }
 
+    function getUserId() {
+        return $this->userId;
+    }
     function getContent() {
         return $this->content;
     }
@@ -58,14 +65,17 @@ class Post extends Entity {
         return $this->categoryId;
     }
 
-    function getDate() {
-        return $this->date;
+    function getDateCreated() {
+        return $this->dateCreated;
     }
 
     function setId($id) {
         $this->id = $id;
     }
 
+    function setUserId($userId) {
+        $this->userId = $userId;
+    }
     function setTitle($title) {
         $this->title = $title;
     }
@@ -78,8 +88,8 @@ class Post extends Entity {
         $this->categoryId = $categoryId;
     }
 
-    function setDate($date) {
-        $this->date = $date;
+    function setDateCreated($dateCreated) {
+        $this->dateCreated = $dateCreated;
     }
 
 }
