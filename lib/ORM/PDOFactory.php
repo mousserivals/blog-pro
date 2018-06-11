@@ -16,7 +16,6 @@ class PDOFactory {
     }
 
     public function getManagerOf($entity) {
-
         $class = new \ReflectionClass($entity);
 
         if ($class->getParentClass()->getName() !== Entity::class) {
