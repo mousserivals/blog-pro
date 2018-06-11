@@ -11,15 +11,16 @@ use Src\Manager\PostManager;
 class PostController extends Controller {
 
     function home() {
-        echo 'homepage';
+
+      $this->render('Post/home.html.twig',['title' => 'Bienvenu visiteur']);
     }
 
     function index() {
         $manager = $this->database()->getManagerOf(Comment::class);
         $article = $manager->commentByPost(1);
-        var_dump($article);
-        exit();
-        echo 'index';
+        
+        $this->render('Post/index.html.twig',['title' => 'Bienvenu visiteur']);
+
     }
 
     function show($id) {
@@ -33,12 +34,14 @@ class PostController extends Controller {
 //         $postManager = $this->database()->getManagerOf(Post::class)->add($post);
 
         $manager = $this->database()->getManagerOf(Post::class);
-        $article = $manager->find(5);
+        $article = $manager->find(1);
 //        $article->setTitle('titre modifie');
 //        $article->setContent('contenu modifie');
 //        $manager->modify($article);
-        $manager->delete($article);
-
+//        $manager->delete($article);
+//echo $article;
+var_dump($article);
+exit();
     }
 
 }
