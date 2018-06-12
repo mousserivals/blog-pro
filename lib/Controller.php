@@ -7,21 +7,26 @@ use Lib\ORM\PDOFactory;
 use Lib\Router\Router;
 
 abstract class Controller {
+
 //
     private $request;
     private $router;
     private $database;
+    private $twig;
 
-    public function __construct(Request $request , Router $router ) {
-
+    public function __construct(Request $request, Router $router) {
         $this->request = $request;
         $this->router = $router;
         $this->database = new PDOFactory();
+        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../src/View/');
+        $this->twig = new \Twig_Environment($loader,['cache' => false ,'debug' => true]);
     }
 
     public function render($nameView, $params = []) {
-        $view = __DIR__ . '/../../src/Views/' . $nameView;
-        return $view;
+        $template = $this->twig->load($nameView);
+        $view = $template->render($params);
+
+        echo $view;
     }
 
     public function redirect($nameRoute, $params = []) {
