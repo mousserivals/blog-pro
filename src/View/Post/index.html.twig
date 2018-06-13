@@ -1,11 +1,57 @@
-
 {% extends'base.html.twig' %}
-
 {% block body %}
-    <div class="row">
-        <div class="col-12">
-            <h1>acceuil</h1>
 
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
+        <div class="my-auto">
+            <h2 class="mb-5">blog</h2>
+            {% for p in pagination.result %}
+                <div class="resume-item d-flex flex-column flex-md-row mb-5">
+                    <div class="resume-content mr-auto">
+                        <h3 class="mb-0">{{p.title}}</h3>
+                        {#<div class="subheading mb-3">Intelitec Solutions</div>#}
+                        <p>{{p.content}}</p>
+                    </div>
+                    <div class="resume-date text-md-right">
+                        <span class="text-primary">{{p.dateCreated|date}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% if pagination.nbpage > 1 %}
+
+                {# Number of page around current page+1 pagination.nbPages {{ path(url, { 'page': loop.index, 'q': query }) }}{{ path(url, { 'page': pagination.nbpage, 'q': query }) }} #}
+                {% set nearbyPagesLimit = 4 %}
+
+                <div >
+                    <ul class="pagination">
+                        {% if pagination.currentPage != 1 %}
+                            <li class="page-item">
+                                <a class="page-link"  href="{{pagination.first}}">First</a>
+                            </li>
+                        {% endif %}
+                        {% for i in 1..pagination.nbpage %}
+                            {% if 0 == (pagination.currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                                <li class="page-item disabled"><a class="page-link"  href="#">...</a></li>
+                                {% elseif 0 == (pagination.currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                                <li class="page-item disabled"><a class="page-link"  href="#">...</a></li>
+                                {% elseif 0 < (pagination.currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                {% elseif 0 > (pagination.currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                                {% else %}
+                                <li class="page-item {% if pagination.currentPage == loop.index  %}active{% endif %} ">
+                                    <a class="page-link"  href="{{loop.index}}">{{ loop.index }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        {% if pagination.currentPage != pagination.nbpage %}
+                            <li class="page-item">
+                                <a class="page-link"  href="{{pagination.last}}">Last</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %} 
         </div>
-    </div>
+
+    </section>    
 {% endblock %}
