@@ -127,10 +127,10 @@ class Manager {
 //        return $listePosts;
 //    }
 
-    public function paginate($newpage = null) {
+    public function paginate($newpage = null,$perPage = null) {
         $pagination = [];
         $nbArt = (int)$this->count();
-        $perPage = 3;
+        $perPage = ($perPage)? $perPage :  3;
         $nbage = ceil($nbArt/$perPage);
         $cPage = (isset($newpage))? $newpage :  1 ;
         $current = ($cPage-1)*$perPage;
