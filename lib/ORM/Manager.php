@@ -126,9 +126,48 @@ class Manager {
 //
 //        return $listePosts;
 //    }
-//
-//    public function count() {
-//        return $this->pdo->query('SELECT COUNT(*) FROM article')->fetchColumn();
-//    }
+
+    public function paginate($newpage = null) {
+        $pagination = [];
+        $nbArt = (int)$this->count();
+        $perPage = 3;
+        $nbage = ceil($nbArt/$perPage);
+        $cPage = (isset($newpage))? $newpage :  1 ;
+        $current = ($cPage-1)*$perPage;
+        $curPage = (isset($newpage))? $newpage :  0 ;
+        $first = $curPage-1;
+        if ($first == 0) {
+            $first = 1;
+        }
+        $last = $curPage+1;
+        if ($last == $nbage) {
+            $last = $nbage;
+        }
+
+        $query = sprintf("select * from %s ORDER BY %s DESC LIMIT %s,%s", $this->datastructure["table"], $this->datastructure["primaryKey"], $current ,$perPage);
+        $requete = $this->pdo->prepare($query);
+        $requete->execute(array(":table" => $this->datastructure["table"], ":id" => $this->datastructure["primaryKey"], "current" => $current, "perPage" => $perPage));
+        $data = $requete->fetchAll(\PDO::FETCH_ASSOC);
+        $result =  $this->getHydrateAll($data);
+        $pagination['result'] = $result;
+        $pagination['nbpage'] = $nbage;
+        $pagination['currentPage'] = $curPage;
+        $pagination['first'] = $first;
+        $pagination['last'] = $last;
+        $pagination['path'] = $_SERVER['HTTP_HOST'];
+
+        return $pagination;
+
+    }
+
+    public function count() {
+        $query = sprintf("SELECT COUNT(*) FROM %s ", $this->datastructure["table"]);
+        $requete = $this->pdo->prepare($query);
+        $requete->execute();
+        $result = $requete->fetchColumn();
+
+        return $result;
+    }
+
 //
 }

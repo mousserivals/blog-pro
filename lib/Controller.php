@@ -20,8 +20,9 @@ abstract class Controller {
         $this->database = new PDOFactory();
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../src/View/');
         $this->twig = new \Twig_Environment($loader,['cache' => false ,'debug' => true]);
+        $this->twig->addExtension(new \Twig_Extension_Debug());
     }
-
+    
     public function render($nameView, $params = []) {
         $template = $this->twig->load($nameView);
         $view = $template->render($params);
