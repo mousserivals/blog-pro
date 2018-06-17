@@ -38,7 +38,6 @@ class Route {
     }
 
     public function match($url) {
-
         $url = trim($url, '/');
         $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
         $regex = "#^$path$#i";
@@ -50,7 +49,6 @@ class Route {
          */
         array_shift($matches);
         $this->matches = $matches;
-
         return true;
     }
 
@@ -72,7 +70,6 @@ class Route {
             $params = explode("#", $this->callable);
             $controller = "Src\\Controller\\" . $params[0] . "Controller";
             $controller = new $controller($request,$router);
-
             return call_user_func_array([$controller,  $params[1]], $this->matches);
         } else {
             throw new \Exception('callable does not string');

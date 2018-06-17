@@ -4,7 +4,7 @@
         <div class="col-lg-2">
             <div class="card" style="width: 18rem; margin-top: 130px;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="">Ajouter un article</a></li>
+                    <li class="list-group-item"><a href="/admin/post/add">Ajouter un article</a></li>
                     <li class="list-group-item"><a href="">Gestion des catégories</a></li>
                     <li class="list-group-item"><a href="">Ajouter une catégorie</a></li>
                 </ul>
@@ -39,9 +39,9 @@
                                         <td>{{p.content}}</td>
                                         <td>{{p.dateCreated|date}}</td>
                                         <td>
-                                            <a href="/show/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Voir article"><i class="fas fa-eye"></i></a>
-                                            <a href="/edit/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Modifier article"><i class="fas fa-edit"></i></a>
-                                            <a href="/delete/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Supprimer article"><i class="fas fa-trash-alt"></i></a>
+                                            <a href="/admin/post/show/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Voir article"><i class="fas fa-eye"></i></a>
+                                            <a href="/admin/post/edit/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Modifier article"><i class="fas fa-edit"></i></a>
+                                            <a href="/admin/post/delete/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Supprimer article"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
 
