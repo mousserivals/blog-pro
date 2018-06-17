@@ -1,0 +1,89 @@
+{% extends'admin.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="card" style="width: 18rem; margin-top: 130px;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="">Ajouter un article</a></li>
+                    <li class="list-group-item"><a href="">Gestion des catégories</a></li>
+                    <li class="list-group-item"><a href="">Ajouter une catégorie</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <section class=" p-3  d-flex flex-column" id="blog">
+                <div class="my-auto">
+                    <h2 class="mb-5">Gestion des Articles</h2>
+                    <div class="table-responsive-md">
+                        <table class="table">
+                            <caption>Liste des articles</caption>
+                            <thead>
+                                <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">Createur</th>
+                                    <th scope="col">Catégorie</th>
+                                    <th scope="col">Titre</th>
+                                    <th scope="col">Contenu</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Action</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in pagination.result %}
+                                    <tr>
+                                        <th scope="row">{{p.id}}</th>
+                                        <td>{{p.userId}}</td>
+                                        <td>{{p.categoryId}}</td>
+                                        <td>{{p.title}}</td>
+                                        <td>{{p.content}}</td>
+                                        <td>{{p.dateCreated|date}}</td>
+                                        <td>
+                                            <a href="/show/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Voir article"><i class="fas fa-eye"></i></a>
+                                            <a href="/edit/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Modifier article"><i class="fas fa-edit"></i></a>
+                                            <a href="/delete/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Supprimer article"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if pagination.nbpage > 1 %}
+
+                        {# Number of page around current page+1 pagination.nbPages {{ path(url, { 'page': loop.index, 'q': query }) }}{{ path(url, { 'page': pagination.nbpage, 'q': query }) }} #}
+                        {% set nearbyPagesLimit = 4 %}
+
+                        <div >
+                            <ul class="pagination">
+                                {% if pagination.currentPage != 1 %}
+                                    <li class="page-item">
+                                        <a class="page-link"  href="{{pagination.first}}">First</a>
+                                    </li>
+                                {% endif %}
+                                {% for i in 1..pagination.nbpage %}
+                                    {% if 0 == (pagination.currentPage - nearbyPagesLimit) - loop.index %} {# dot before #}
+                                        <li class="page-item disabled"><a class="page-link"  href="#">...</a></li>
+                                        {% elseif 0 == (pagination.currentPage + nearbyPagesLimit) - loop.index %} {# dot after #}
+                                        <li class="page-item disabled"><a class="page-link"  href="#">...</a></li>
+                                        {% elseif 0 < (pagination.currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
+                                        {% elseif 0 > (pagination.currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
+                                        {% else %}
+                                        <li class="page-item {% if pagination.currentPage == loop.index  %}active{% endif %} ">
+                                            <a class="page-link"  href="{{loop.index}}">{{ loop.index }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if pagination.currentPage != pagination.nbpage %}
+                                    <li class="page-item">
+                                        <a class="page-link"  href="{{pagination.last}}">Last</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endif %} 
+                </div>
+            </section>   
+        </div>        
+    </div>        
+{% endblock %}

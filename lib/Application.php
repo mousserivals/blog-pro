@@ -31,7 +31,20 @@ class Application {
         $this->router->post('/posts/:id', function($id) {
             echo 'Poster l\'articles ' . $id;
         });
-        $this->router->getRoute($this->request, $this->router);
+       
+        
+        /*
+         * admin
+         */
+        
+        $this->router->get('/admin', 'Postadmin#home', 'Postadmin.home');
+        $this->router->get('/admin/post', 'Postadmin#index', 'Postadmin.index');
+        $this->router->get('/admin/post/:pagination', 'Postadmin#index', 'Postadmin.index')->with('pagination', '[0-9]+');
+        $this->router->get('/admin/post/show/:id', 'Postadmin#show', 'Postadmin.show')->with('id', '[0-9]+');
+        $this->router->get('/admin/post/add', 'Postadmin#add', 'Postadmin.add');
+        $this->router->get('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
+        $this->router->get('/admin/delete/:id', 'Postadmin#delete', 'Postadmin.delete');
+         $this->router->getRoute($this->request, $this->router);
     }
 
 }

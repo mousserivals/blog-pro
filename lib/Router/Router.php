@@ -42,7 +42,7 @@ class Router {
         }
         foreach ($this->routes[$request->method()] as $route) {
             if ($route->match($request->requestURI())) {
-                
+
                 return $route->call($request, $router);
             }
         }
