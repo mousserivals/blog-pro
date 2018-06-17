@@ -41,8 +41,8 @@ class PostadminController extends Controller {
         if (!empty($_POST)) {
 
 
-            if (!empty($_POST['categorie'])) {
-                $categorie = htmlentities($_POST['categorie']);
+            if (!empty($_POST['categoryId'])) {
+                $categorie = htmlentities($_POST['categoryId']);
             } else {
                 $erreur['cat'] = 'Merci de vérifier la catégorie';
             }
@@ -60,7 +60,7 @@ class PostadminController extends Controller {
             }
             if (!empty($erreur)) {
                 $this->render('Admin/Post/add.html.twig', ['erreur' => $erreur,
-                    'categorie' => $_POST['categorie'],
+                    'categorie' => $_POST['categoryId'],
                     'title' => $_POST['title'],
                     'content' => $_POST['content']]);
             } else {
@@ -75,14 +75,59 @@ class PostadminController extends Controller {
                 $message = 'l\'article a bien été enregistré';
                 $this->render('Admin/Post/add.html.twig', ['message' => $message]);
             }
-            
         }
 
         $this->render('Admin/Post/add.html.twig');
     }
 
-    function edit($param) {
-        
+    function edit($id = null) {
+        $erreur = [];
+        $message = '';
+        if (!empty($_POST)) {
+
+            if (!empty($_POST['categoryId'])) {
+                $categorie = htmlentities($_POST['categoryId']);
+            } else {
+                $erreur['cat'] = 'Merci de vérifier la catégorie';
+            }
+
+            if (is_string($_POST['title']) && !empty($_POST['title'])) {
+                $title = htmlentities($_POST['title']);
+            } else {
+                $erreur['tit'] = 'Le titre est vide, Merci de le renseigner';
+            }
+
+            if (is_string($_POST['content']) && !empty($_POST['content'])) {
+                $content = htmlentities($_POST['content']);
+            } else {
+                $erreur['con'] = 'Le contenu est vide, Merci de le renseigner';
+            }
+            if (!empty($erreur)) {
+                $this->render('Admin/Post/add.html.twig', ['erreur' => $erreur,
+                    'categorie' => $_POST['categoryId'],
+                    'title' => $_POST['title'],
+                    'content' => $_POST['content']]);
+            } else {
+
+                $manager = $this->database()->getManagerOf(Post::class);
+                $post = $manager->find($_POST['id']);
+
+                $post->setId($_POST['id']);
+                $post->setUserId(1);
+                $post->setTitle($title);
+                $post->setContent($content);
+                $post->setCategoryId($categorie);
+
+                $manager->modify($post);
+
+                $message = 'l\'article a bien été modifié';
+                $this->render('Admin/Post/add.html.twig', ['message' => $message]);
+            }
+        }
+
+        $manager = $this->database()->getManagerOf(Post::class);
+        $post = $manager->find($id);
+        $this->render('Admin/Post/edit.html.twig', ['article' => $post]);
     }
 
     function delete($param) {
