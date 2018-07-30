@@ -1,18 +1,10 @@
 <?php
-
 namespace Lib\ORM;
-
-
 
 abstract class Entity{
 
     protected $erreurs = [],
               $id;
-
-    public function __construct() {
-
-    }
-
     
     /**
      * @return array

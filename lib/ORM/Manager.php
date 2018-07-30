@@ -3,12 +3,14 @@
 namespace Lib\ORM;
 
 use Lib\ORM\PDOFactory;
+use Lib\Form;
 
 class Manager {
 
     protected $pdo = null;
     protected $entity;
-    protected $datastructure;
+    public $datastructure;
+    protected $form;
 
     public function __construct($entity) {
 
@@ -17,11 +19,11 @@ class Manager {
         $this->datastructure = $this->entity::dataStructure();
     }
 
-    protected function getHydrate($data) {
+    public function getHydrate($data) {
         return (new $this->entity())->hydrate($data);
     }
 
-    protected function getHydrateAll($data) {
+    public function getHydrateAll($data) {
         return array_map(function($row) {
             return (new $this->entity())->hydrate($row);
         }, $data);
@@ -104,29 +106,6 @@ class Manager {
         return $property;
     }
 
-//    public function getList($debut = -1, $limite = -1) {
-////        var_dump($this->dataStructure);
-////        foreach ($this->dataStructure as $key => $value) {
-////            var_dump($key);
-////            var_dump($value);
-////            exit();
-////        }
-//        $sql = 'SELECT id, title, content, date FROM article ORDER BY id DESC';
-//
-//        if ($debut != -1 || $limite != -1) {
-//            $sql .= ' LIMIT ' . (int) $limite . ' OFFSET ' . (int) $debut;
-//        }
-//
-//        $requete = $this->pdo->query($sql);
-//        $requete->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, '\Entity\postEntity');
-//
-//        $listePosts = $requete->fetchAll();
-//
-//        $requete->closeCursor();
-//
-//        return $listePosts;
-//    }
-
     public function paginate($newpage = null,$perPage = null) {
         $pagination = [];
         $nbArt = (int)$this->count();
@@ -168,6 +147,5 @@ class Manager {
 
         return $result;
     }
-
-//
+   
 }

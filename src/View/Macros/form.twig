@@ -1,0 +1,69 @@
+{% macro error_block(errors) %}
+    {% if errors %}
+        <span class="help-block">
+            <ul>
+                {% for err in errors %}
+                    <li>{{ err }}</li>
+                    {% endfor %}
+            </ul>
+        </span>
+    {% endif %}
+{% endmacro %}
+
+{% macro start() %}
+    <form action="" method="POST"  >
+    {% endmacro %}
+
+    {% macro end() %}
+    </form>
+{% endmacro %}
+
+
+{% macro input_text(name, label, placeholder, value, errors) %}
+    {% import _self as form %}
+
+    <div class="form-group ">
+        <label class="control-label col-sm-3" for="input_{{ name }}">{{ label }}</label>
+        <div class="col-sm-12">
+            <input class="form-control {% if errors %}is-invalid{% endif %}" type="text" id="input_{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">
+            {{ form.error_block(errors) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro input_select(name, label, placeholder, option_array, value, errors, options = { multiple: false, include_blank: true }) %}
+    {% import _self as form %}
+    <div class="form-group {% if errors %}has-error{% endif %}">
+        <label class="control-label col-sm-3" for="input_{{ name }}">{{ label }}</label>
+        <div class="col-sm-12">
+            <select id="input_{{ name }}" name="{{ name }}" class="selectpicker form-control disable-text-shadow {% if errors %}is-invalid{% endif %}" {% if options.multiple %}multiple{% endif %}>
+                {% if options.include_blank %}
+                    <option disabled selected></option>
+                {% endif %}
+                {% for key,val in option_array %}
+
+                    <option value="{{ key|number_format }}" {% if value == key %}selected{% endif %}>{{ val }}</option>
+                {% endfor %}
+            </select>
+            {{ form.error_block(errors) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro input_textarea(name, label, placeholder, value, errors) %}
+    {% import _self as form %}
+
+    <div class="form-group {% if errors %}has-error{% endif %}">
+        <label class="control-label col-sm-3" for="input_{{ name }}">{{ label }}</label>
+        <div class="col-sm-12">
+            <textarea rows="6" class="form-control {% if errors %}is-invalid{% endif %}" id="input_{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}">{{ value }}</textarea>
+            {{ form.error_block(errors) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro submit(name) %}
+    <div class="jumbotron">
+        <button type="submit" class="btn btn-primary pull-right">{{ name }}</button>
+    </div>
+{% endmacro %}    

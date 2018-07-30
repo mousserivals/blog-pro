@@ -1,0 +1,5 @@
+.help-block li {
+    color: red;
+    list-style: none;
+    margin-left: -40px;
+}

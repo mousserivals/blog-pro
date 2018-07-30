@@ -9,7 +9,7 @@ use Lib\Router\Router;
 abstract class Controller {
 
 //
-    private $request;
+    public $request;
     private $router;
     private $database;
     private $twig;
