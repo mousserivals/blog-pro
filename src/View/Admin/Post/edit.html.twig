@@ -5,7 +5,7 @@
         <div class="col-lg-2">
             <div class="card" style="width: 18rem; margin-top: 130px;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="">Ajouter un article</a></li>
+                    <li class="list-group-item"><a href="/admin/post">Gestion des articles</a></li>
                     <li class="list-group-item"><a href="">Gestion des catégories</a></li>
                     <li class="list-group-item"><a href="">Ajouter une catégorie</a></li>
                 </ul>
@@ -14,25 +14,17 @@
         <div class="col-lg-8">
             <section class=" p-3  d-flex flex-column" id="blog">
                 <div class="my-auto">
-                    <h2 class="mb-5">Ajouter un Articles</h2>
+                    <h2 class="mb-5">Modifier un Articles</h2>
                     {% if message %}
                         <div class="alert alert-success" role="alert">
                             {{message}}
                         </div>
                     {% endif %}
-                    {% if erreur  %}
-                        <div class="alert alert-danger" role="alert">
-                            {{erreur.cat}} <br />
-                            {{erreur.tit}} <br />
-                            {{erreur.con}}
-                        </div>
-                    {% endif %}
-
-                    {#                    {{form | raw }}#}
-
-                    {#                        {{ dump(form)}}#}
-
+                    
+{#                    {{ dump(form) }}#}
+                    
                     {{ forms.start()}}
+                    {{ forms.input_hidden(form.id.name, form.id.value) }}
                     {{ forms.input_text(form.title.name, form.title.label, form.title.placeholder, form.title.value, form.title.errors) }}
                     {{ forms.input_select(form.categoryId.name, form.categoryId.label, form.categoryId.placeholder,
                                           form.categoryId.option_array, form.categoryId.value, form.categoryId.errors ) }}
@@ -41,30 +33,6 @@
 
                     {{ forms.end()}}
 
-
-                    {#                    <form action="" method="POST" name="form" >
-                                            <div class="form-group">
-                                                <label for="Categorie">Categorie</label>
-                                                <select class="form-control" id="Categorie" name="categoryId" value="{{categoryId}}">
-                                                    <option value="">Choisir une categoryId</option>
-                                                    <option value="1">categoryId 1</option>
-                                                    <option value="2">exemple2</option>
-                                                    <option value="3">exemple3</option>
-                                                    <option value="4">exemple4</option>
-                                                    <option value="5">exemple5</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="title">Titre</label>
-                                                <input type="text" class="form-control"name="title" id="title" aria-describedby="emailHelp" placeholder="Titre" value="{{title}}" required>
-                                                {#                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
-                    {#        </div>
-                           <div class="form-group">
-                               <label for="Contenu">Contenu</label>
-                               <textarea class="form-control" id="Contenu" name="content" rows="3" required>{{content}}</textarea>
-                           </div>
-                           <button type="submit" class="btn btn-primary">Ajouter</button>
-                       </form>#}
                 </div>
             </section>   
         </div>        

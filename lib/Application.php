@@ -44,6 +44,7 @@ class Application {
         $this->router->get('/admin/post/add', 'Postadmin#add', 'Postadmin.add');
         $this->router->post('/admin/post/add', 'Postadmin#add', 'Postadmin.add');
         $this->router->get('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
+        $this->router->post('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
         $this->router->get('/admin/delete/:id', 'Postadmin#delete', 'Postadmin.delete');
          $this->router->getRoute($this->request, $this->router);
     }

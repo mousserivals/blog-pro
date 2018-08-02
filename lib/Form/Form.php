@@ -1,6 +1,7 @@
 <?php
 
 namespace Lib\Form;
+
 /**
  * Description of Formulaire
  *
@@ -25,25 +26,25 @@ abstract class Form {
     }
 
     public function handle($request) {
-        $this->entity->hydrate($request);
-
-        foreach ($this->form as &$field) {
-            $field['value'] = $request[$field['name']]?? '';
+        if (!empty($request)) {
+            $this->entity->hydrate($request);
+            foreach ($this->form as &$field) {
+                $field['value'] = $request[$field['name']] ?? '';
+            }
         }
-        
     }
 
     public function isValid() {
-        $error =  true;
+        $error = true;
         foreach ($this->form as $name => &$field) {
             foreach ($field['validate'] as $validator) {
                 if (!$validator->validate($field['value'])) {
-                    $field['errors'][] = $validator->message ; 
+                    $field['errors'][] = $validator->message;
                     $error = false;
                 }
             }
         }
-        return $error ;
+        return $error;
     }
 
 }

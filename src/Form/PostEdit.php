@@ -8,10 +8,9 @@ use Src\Entity\Category;
 
 
 
-class PostAdd extends Form {
+class PostEdit extends Form {
 
     public function build() {
-        
         $managerCategorie = $this->database->getManagerOf(Category::class);
         $cat = $managerCategorie->findAll();
         $catArray = array_combine(array_map(function($c) {
@@ -20,11 +19,21 @@ class PostAdd extends Form {
                     return $c->getTitle();
                 }, $cat));
                 
-        $this->form = ['title' => [
+        $this->form = [
+            
+            'id' => [
+                'name' => 'id',
+                'label' => '',
+                'placeholder' => '',
+                'value' => $this->entity->getId(),
+                'errors' => [],
+                "validate" => [],
+            ],
+            'title' => [
                 'name' => 'title',
                 'label' => 'Titre',
                 'placeholder' => 'Titre',
-                'value' => '',
+                'value' => $this->entity->getTitle(),
                 'errors' => [],
                 "validate" => [
                     'notNull' => new NotNullValidator('Merci de spécifier le titre')
@@ -35,7 +44,7 @@ class PostAdd extends Form {
                 'label' => 'Categorie',
                 'placeholder' => 'Categorie',
                 'option_array' => $catArray,
-                'value' => '',
+                'value' => $this->entity->getCategoryId(),
                 'errors' => [],
                 'options' => false,
                 "validate" => [
@@ -46,7 +55,7 @@ class PostAdd extends Form {
                 'name' => 'content',
                 'label' => 'Contenu',
                 'placeholder' => 'Contenu',
-                'value' => '',
+                'value' => $this->entity->getContent(),
                 'errors' => [],
                 "validate" => [
                     'notNull' => new NotNullValidator('Merci de spécifier un contenu')

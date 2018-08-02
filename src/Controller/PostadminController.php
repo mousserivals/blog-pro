@@ -7,6 +7,7 @@ use Lib\Form\Form;
 use Src\Entity\Post;
 use Src\Entity\Category;
 use Src\Form\PostAdd;
+use Src\Form\PostEdit;
 
 /**
  * Description of PostAdmin
@@ -48,8 +49,26 @@ class PostadminController extends Controller {
         $this->render('Admin/Post/add.html.twig', ['form' => $form->getView(), 'message' => $message]);
     }
 
-    function edit($param) {
-        
+    function edit($id) {
+        $erreur = [];
+        $message = '';
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->find($id);
+//        var_dump($article);
+//        exit();
+        $form = new PostEdit($this->database(), $article);
+        $form->build();
+
+        $form->handle($this->request->post());
+
+        if ($this->request->method() == 'POST' && $form->isValid()) {
+            $form->entity->setCategoryId(intval($this->request->post()['category_id']));
+            $form->entity->setDateCreated(date("Y-m-d H:i:s"));
+            $manager->modify($form->entity);
+            $message = 'Article bien Modifié';
+        }
+
+        $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView(), 'message' => $message]);
     }
 
     function delete($param) {
