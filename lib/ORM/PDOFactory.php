@@ -16,6 +16,7 @@ class PDOFactory {
     }
 
     public function getManagerOf($entity) {
+
         $class = new \ReflectionClass($entity);
 
         if ($class->getParentClass()->getName() !== Entity::class) {
@@ -24,7 +25,6 @@ class PDOFactory {
         if (!is_string($entity) || empty($entity)) {
             throw new \InvalidArgumentException('Le entité spécifié est invalide');
         }
-
        
         if (!isset($this->managers[$entity])) {
             $manager = $entity::dataStructure()['manager'];

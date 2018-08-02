@@ -9,7 +9,7 @@ use Lib\Router\Router;
 abstract class Controller {
 
 //
-    private $request;
+    public $request;
     private $router;
     private $database;
     private $twig;
@@ -28,6 +28,7 @@ abstract class Controller {
         $view = $template->render($params);
 
         echo $view;
+        exit();
     }
 
     public function redirect($nameRoute, $params = []) {

@@ -10,7 +10,7 @@ class Post extends Entity {
     public $title;
     public $content;
     public $categoryId;
-    public $date;
+    public $DateCreated;
 
     public static function dataStructure() {
         return [
@@ -23,20 +23,33 @@ class Post extends Entity {
                     "property" => "id"
                 ],
                 "user_id" => [
-                    "type" => "string",
-                    "property" => "userId"
+                    "type" => "integer",
+                    "property" => "userId",
+                    "formProperty" => [
+                        'type' => 'text',
+                        'label' => 'Titre'
+                    ]
                 ],
                 "title" => [
                     "type" => "string",
-                    "property" => "title"
+                    "property" => "title",
+                    "formProperty" => [
+                        'type' => 'text',
+                        'label' => 'Titre'
+                    ],
                 ],
                 "content" => [
                     "type" => "string",
-                    "property" => "content"
+                    "property" => "content",
+                    "formProperty" => [
+                        'type' => 'textarea',
+                        'label' => 'Contenu',
+                    ],
                 ],
                 "category_id" => [
                     "type" => "integer",
-                    "property" => "categoryId"
+                    "property" => "categoryId",
+
                 ],
                 "date_created" => [
                     "type" => "datetime",
@@ -57,6 +70,7 @@ class Post extends Entity {
     function getUserId() {
         return $this->userId;
     }
+
     function getContent() {
         return $this->content;
     }
@@ -76,6 +90,7 @@ class Post extends Entity {
     function setUserId($userId) {
         $this->userId = $userId;
     }
+
     function setTitle($title) {
         $this->title = $title;
     }
@@ -85,6 +100,7 @@ class Post extends Entity {
     }
 
     function setCategoryId($categoryId) {
+        
         $this->categoryId = $categoryId;
     }
 

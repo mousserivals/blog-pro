@@ -19,14 +19,12 @@ class Request {
         return isset($_COOKIE[$key]);
     }
 
-    public function get($key) {
-
-        return isset($_GET[$key]) ? $_GET[$key] : null;
+    public function get() {
+        return isset($_GET);
     }
 
     public function getExists($key) {
-
-        return isset($_GET[$key]);
+        return isset($_GET[$key]) ? $_GET[$key] : null;
     }
 
     public function method() {
@@ -34,14 +32,13 @@ class Request {
         return $_SERVER['REQUEST_METHOD'];
     }
 
-    public function post($key) {
-
-        return isset($_POST[$key]) ? $_POST[$key] : null;
+    public function post() {
+        return $_POST;
     }
 
     public function postExists($key) {
 
-        return isset($_POST[$key]);
+        return isset($_POST[$key]) ? $_POST[$key] : null;
     }
 
     public function requestURI() {
