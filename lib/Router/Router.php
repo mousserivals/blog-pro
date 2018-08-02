@@ -32,6 +32,7 @@ class Router {
         if ($name) {
             $this->namedRoutes[$name] = $route;
         }
+        
         return $route;
     }
 
@@ -46,7 +47,7 @@ class Router {
                 return $route->call($request, $router);
             }
         }
-        throw new \Exception('No routes matches');
+        throw new \Exception('No routes matches ');
     }
 
     public function url($nameRoute, $params = []) {

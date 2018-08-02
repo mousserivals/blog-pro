@@ -28,6 +28,7 @@ abstract class Controller {
         $view = $template->render($params);
 
         echo $view;
+        exit();
     }
 
     public function redirect($nameRoute, $params = []) {

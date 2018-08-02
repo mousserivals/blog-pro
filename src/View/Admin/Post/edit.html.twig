@@ -1,0 +1,58 @@
+{% extends'admin.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="card" style="width: 18rem; margin-top: 130px;">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="/admin/post">Gestion des articles</a></li>
+                    <li class="list-group-item"><a href="/admin/post/add">Ajouter un article</a></li>
+                    <li class="list-group-item"><a href="">Gestion des catégories</a></li>
+                    <li class="list-group-item"><a href="">Ajouter une catégorie</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-10">
+            <section class=" p-3  d-flex flex-column" id="blog">
+                <div class="my-auto">
+                    <h2 class="mb-5">Modifier un Articles</h2>
+                    {% if message %}
+                        <div class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                    {% endif %}
+                    {% if erreur  %}
+                        <div class="alert alert-danger" role="alert">
+                            {{erreur.cat}} <br />
+                            {{erreur.tit}} <br />
+                            {{erreur.con}}
+                        </div>
+                    {% endif %}
+                    <form action="/admin/post/edit" method="POST" name="form" >
+                        <input type="hidden" class="form-control"name="id" id="id" value="{{article.id}}">
+                        <div class="form-group">
+                            <label for="Categorie">Categorie</label>
+                            <select class="form-control" id="Categorie" name="categoryId">
+                                <option value="">Choisir une categorie</option>
+                                <option value="1" {% if "1" == article.categoryId %}selected{% endif %} >exemple1</option>
+                                <option value="2" {% if "2" == article.categoryId %}selected{% endif %} >exemple2</option>
+                                <option value="3" {% if "3" == article.categoryId %}selected{% endif %}>exemple3</option>
+                                <option value="4" {% if "4" == article.categoryId %}selected{% endif %}>exemple4</option>
+                                <option value="5" {% if "5" == article.categoryId %}selected{% endif %}>exemple5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">Titre</label>
+                            <input type="text" class="form-control"name="title" id="title" aria-describedby="emailHelp" placeholder="Titre" value="{{article.title}}" required>
+                            {#                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+                        </div>
+                        <div class="form-group">
+                            <label for="Contenu">Contenu</label>
+                            <textarea class="form-control" id="Contenu" name="content" rows="3" required>{{article.content}}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </section>   
+        </div>        
+    </div>        
+{% endblock %}
