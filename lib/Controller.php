@@ -32,8 +32,10 @@ abstract class Controller {
     }
 
     public function redirect($nameRoute, $params = []) {
-        header('Location: ' . $this->router->url($nameRoute, $params));
-        exit;
+        $site = $this->request->requestHOST();
+        header('Location: http://'.$site.'/'.$this->router->url($nameRoute, $params));
+//        header('Location: ' . $this->router->url($nameRoute, $params));
+        exit();
     }
 
     public function json($json) {

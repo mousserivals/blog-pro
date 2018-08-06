@@ -12,8 +12,14 @@
         </div>
         <div class="col-lg-10">
             <section class=" p-3  d-flex flex-column" id="blog">
+
                 <div class="my-auto">
                     <h2 class="mb-5">Gestion des Articles</h2>
+                    {% if message %}
+                        <div class="alert alert-success" role="alert">
+                            {{message}}
+                        </div>
+                    {% endif %}
                     <div class="table-responsive-md">
                         <table class="table">
                             <caption>Liste des articles</caption>
@@ -26,7 +32,7 @@
                                     <th scope="col">Contenu</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Action</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>

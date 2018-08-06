@@ -41,7 +41,10 @@ class Router {
         if (!isset($this->routes[$request->method()])) {
             throw new \Exception('REQUEST_METHOD does not exist');
         }
+        
         foreach ($this->routes[$request->method()] as $route) {
+//            var_dump($route->match($request->requestURI()));
+//            var_dump($request->requestURI());
             if ($route->match($request->requestURI())) {
 
                 return $route->call($request, $router);
@@ -55,6 +58,6 @@ class Router {
             throw new \Exception('No routes');
         }
         
-        return $this->namedRoutes[$name]->getUrl($params);
+        return $this->namedRoutes[$nameRoute]->getUrl($params);
     }
 }

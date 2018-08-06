@@ -40,7 +40,6 @@ class PostadminController extends Controller {
         if ($this->request->method() == 'POST' && $form->isValid()) {
             $manager = $this->database()->getManagerOf(Post::class);
             $form->entity->setUserId(1);
-            $form->entity->setCategoryId(intval($this->request->post()['category_id']));
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->add($form->entity);
             $message = 'Article bien enregisté';
@@ -62,10 +61,13 @@ class PostadminController extends Controller {
         $form->handle($this->request->post());
 
         if ($this->request->method() == 'POST' && $form->isValid()) {
-            $form->entity->setCategoryId(intval($this->request->post()['category_id']));
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->modify($form->entity);
+            
+            
             $message = 'Article bien Modifié';
+            $this->redirect('Postadmin.index');
+            exit();
         }
 
         $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView(), 'message' => $message]);

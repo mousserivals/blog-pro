@@ -45,5 +45,9 @@ class Request {
 
         return $_SERVER['REQUEST_URI'];
     }
+    public function requestHOST() {
+
+        return $_SERVER['HTTP_HOST'];
+    }
 
 }

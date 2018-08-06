@@ -79,7 +79,7 @@ class Route {
     public function getUrl($params) {
         $path = $this->path;
         foreach ($params as $k => $v) {
-            $path = str_replace(":k", $v, $path);
+            $path = str_replace(":".$k  , $v, $path);
         }
         return $path;
     }
