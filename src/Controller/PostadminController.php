@@ -5,7 +5,6 @@ namespace Src\Controller;
 use Lib\Controller;
 use Lib\Form\Form;
 use Src\Entity\Post;
-use Src\Entity\Category;
 use Src\Form\PostAdd;
 use Src\Form\PostEdit;
 
@@ -43,6 +42,8 @@ class PostadminController extends Controller {
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->add($form->entity);
             $message = 'Article bien enregisté';
+            $this->session->setFlash($message, 'success');
+            $this->redirect('Postadmin.index',['message' => $message]);
         }
 
         $this->render('Admin/Post/add.html.twig', ['form' => $form->getView(), 'message' => $message]);
@@ -53,8 +54,7 @@ class PostadminController extends Controller {
         $message = '';
         $manager = $this->database()->getManagerOf(Post::class);
         $article = $manager->find($id);
-//        var_dump($article);
-//        exit();
+
         $form = new PostEdit($this->database(), $article);
         $form->build();
 
@@ -63,18 +63,24 @@ class PostadminController extends Controller {
         if ($this->request->method() == 'POST' && $form->isValid()) {
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->modify($form->entity);
-            
-            
+
             $message = 'Article bien Modifié';
-            $this->redirect('Postadmin.index');
-            exit();
+            $this->session->setFlash($message, 'success');
+            $this->redirect('Postadmin.index',['message' => $message]);
         }
 
         $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView(), 'message' => $message]);
     }
 
-    function delete($param) {
-        
+    function delete($id) {
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->find($id);
+
+        $manager->delete($article);
+
+        $message = 'Article bien été supprimé';
+        $this->session->setFlash($message, 'success');
+        $this->redirect('Postadmin.index',['message' => $message]);
     }
 
 }

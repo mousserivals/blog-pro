@@ -4,7 +4,7 @@ namespace Lib;
 
 use Lib\Router\Router;
 use Lib\Controller;
-
+session_start();
 class Application {
 
     protected $request;
@@ -45,7 +45,7 @@ class Application {
         $this->router->post('/admin/post/add', 'Postadmin#add', 'Postadmin.add');
         $this->router->get('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
         $this->router->post('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
-        $this->router->get('/admin/delete/:id', 'Postadmin#delete', 'Postadmin.delete');
+        $this->router->get('/admin/post/delete/:id', 'Postadmin#delete', 'Postadmin.delete')->with('id', '[0-9]+');
         $this->router->getRoute($this->request, $this->router);
     }
 

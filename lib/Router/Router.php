@@ -43,6 +43,7 @@ class Router {
         }
         
         foreach ($this->routes[$request->method()] as $route) {
+//            var_dump($this->routes[$request->method()]);
 //            var_dump($route->match($request->requestURI()));
 //            var_dump($request->requestURI());
             if ($route->match($request->requestURI())) {
