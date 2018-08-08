@@ -1,0 +1,31 @@
+{% extends'admin.html.twig' %}
+{% import "Macros/form.twig" as forms %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="card" style="width: 18rem; margin-top: 130px;">
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item"><a href="/admin/Category">Gestion des catégories</a></li>
+                    <li class="list-group-item"><a href="/admin/Category/add">Ajouter une catégorie</a></li>
+                    <li class="list-group-item"><a href="/admin/post">Gestion des articles</a></li>
+                    <li class="list-group-item"><a href="/admin/post/edit">Modifier l'articles</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <section class=" p-3  d-flex flex-column" id="blog">
+                <div class="my-auto">
+                    <h2 class="mb-5">Modifier une categorie</h2>
+                    {{ forms.start()}}
+                    {{ forms.input_hidden(form.id.name, form.id.value) }}
+                    {{ forms.input_text(form.title.name, form.title.label, form.title.placeholder, form.title.value, form.title.errors) }}                   
+                    {{ forms.submit('Ajouter') }}                      
+
+                    {{ forms.end()}}
+
+                </div>
+            </section>   
+        </div>        
+    </div>        
+{% endblock %}

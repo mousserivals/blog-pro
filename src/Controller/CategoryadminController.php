@@ -6,7 +6,7 @@ use Lib\Controller;
 use Lib\Form\Form;
 use Src\Entity\Category;
 use Src\Form\CategoryAdd;
-//use Src\Form\CategoryEdit;
+use Src\Form\CategoryEdit;
 
 /**
  * Description of PostAdmin
@@ -45,7 +45,22 @@ class CategoryadminController extends Controller {
     }
 
     function edit($id) {
+        $manager = $this->database()->getManagerOf(Category::class);
+        $cat = $manager->find($id);
 
+        $form = new CategoryEdit($this->database(), $cat);
+        $form->build();
+
+        $form->handle($this->request->post());
+
+        if ($this->request->method() == 'POST' && $form->isValid()) {
+            $manager->modify($form->entity);
+
+            $this->session->setFlash('Categorie bien Modifiée', 'success');
+            $this->redirect('Categoryadmin.index');
+        }
+
+        $this->render('Admin/Category/edit.html.twig', ['form' => $form->getView()]);
     }
 
     function delete($id) {
