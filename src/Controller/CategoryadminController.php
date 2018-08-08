@@ -5,7 +5,7 @@ namespace Src\Controller;
 use Lib\Controller;
 use Lib\Form\Form;
 use Src\Entity\Category;
-//use Src\Form\CategoryAdd;
+use Src\Form\CategoryAdd;
 //use Src\Form\CategoryEdit;
 
 /**
@@ -31,7 +31,17 @@ class CategoryadminController extends Controller {
     }
 
     function add() {
+        $form = new CategoryAdd($this->database(), new Category());
+        $form->build();
+        $form->handle($this->request->post());
+        if ($this->request->method() == 'POST' && $form->isValid()) {
+            $manager = $this->database()->getManagerOf(Category::class);
+            $manager->add($form->entity);
+            $this->session->setFlash('Categorie bien enregistée', 'success');
+            $this->redirect('Categoryadmin.index');
+        }
 
+        $this->render('Admin/Category/add.html.twig', ['form' => $form->getView()]);
     }
 
     function edit($id) {
