@@ -31,8 +31,6 @@ class PostadminController extends Controller {
     }
 
     function add() {
-        $erreur = [];
-        $message = '';
         $form = new PostAdd($this->database(), new Post());
         $form->build();
         $form->handle($this->request->post());
@@ -41,17 +39,14 @@ class PostadminController extends Controller {
             $form->entity->setUserId(1);
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->add($form->entity);
-            $message = 'Article bien enregisté';
-            $this->session->setFlash($message, 'success');
-            $this->redirect('Postadmin.index',['message' => $message]);
+            $this->session->setFlash('Article bien enregisté', 'success');
+            $this->redirect('Postadmin.index');
         }
 
         $this->render('Admin/Post/add.html.twig', ['form' => $form->getView(), 'message' => $message]);
     }
 
     function edit($id) {
-        $erreur = [];
-        $message = '';
         $manager = $this->database()->getManagerOf(Post::class);
         $article = $manager->find($id);
 
@@ -64,9 +59,8 @@ class PostadminController extends Controller {
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->modify($form->entity);
 
-            $message = 'Article bien Modifié';
-            $this->session->setFlash($message, 'success');
-            $this->redirect('Postadmin.index',['message' => $message]);
+            $this->session->setFlash('Article bien Modifié', 'success');
+            $this->redirect('Postadmin.index');
         }
 
         $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView(), 'message' => $message]);
@@ -78,9 +72,8 @@ class PostadminController extends Controller {
 
         $manager->delete($article);
 
-        $message = 'Article bien été supprimé';
-        $this->session->setFlash($message, 'success');
-        $this->redirect('Postadmin.index',['message' => $message]);
+        $this->session->setFlash('Article bien été supprimé', 'success');
+        $this->redirect('Postadmin.index');
     }
 
 }
