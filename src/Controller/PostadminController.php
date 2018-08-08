@@ -27,7 +27,10 @@ class PostadminController extends Controller {
     }
 
     function show($id) {
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->find($id);
         
+        $this->render('Admin/Post/show.html.twig', ['article' => $article]);
     }
 
     function add() {
@@ -43,7 +46,7 @@ class PostadminController extends Controller {
             $this->redirect('Postadmin.index');
         }
 
-        $this->render('Admin/Post/add.html.twig', ['form' => $form->getView(), 'message' => $message]);
+        $this->render('Admin/Post/add.html.twig', ['form' => $form->getView()]);
     }
 
     function edit($id) {
@@ -63,7 +66,7 @@ class PostadminController extends Controller {
             $this->redirect('Postadmin.index');
         }
 
-        $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView(), 'message' => $message]);
+        $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView()]);
     }
 
     function delete($id) {

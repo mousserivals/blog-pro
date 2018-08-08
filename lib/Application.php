@@ -46,6 +46,9 @@ class Application {
         $this->router->get('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
         $this->router->post('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
         $this->router->get('/admin/post/delete/:id', 'Postadmin#delete', 'Postadmin.delete')->with('id', '[0-9]+');
+        
+        $this->router->get('/admin/category', 'Categoryadmin#index', 'Categoryadmin.index');
+        
         $this->router->getRoute($this->request, $this->router);
     }
 
