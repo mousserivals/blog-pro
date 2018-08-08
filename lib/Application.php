@@ -4,7 +4,7 @@ namespace Lib;
 
 use Lib\Router\Router;
 use Lib\Controller;
-
+session_start();
 class Application {
 
     protected $request;
@@ -39,13 +39,14 @@ class Application {
         
         $this->router->get('/admin', 'Postadmin#home', 'Postadmin.home');
         $this->router->get('/admin/post', 'Postadmin#index', 'Postadmin.index');
-        $this->router->get('/admin/post/:pagination', 'Postadmin#index', 'Postadmin.index')->with('pagination', '[0-9]+');
+//        $this->router->get('/admin/post/:pagination', 'Postadmin#index', 'Postadmin.index')->with('pagination', '[0-9]+');
         $this->router->get('/admin/post/show/:id', 'Postadmin#show', 'Postadmin.show')->with('id', '[0-9]+');
         $this->router->get('/admin/post/add', 'Postadmin#add', 'Postadmin.add');
         $this->router->post('/admin/post/add', 'Postadmin#add', 'Postadmin.add');
         $this->router->get('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
-        $this->router->get('/admin/delete/:id', 'Postadmin#delete', 'Postadmin.delete');
-         $this->router->getRoute($this->request, $this->router);
+        $this->router->post('/admin/post/edit/:id', 'Postadmin#edit', 'Postadmin.edit')->with('id', '[0-9]+');
+        $this->router->get('/admin/post/delete/:id', 'Postadmin#delete', 'Postadmin.delete')->with('id', '[0-9]+');
+        $this->router->getRoute($this->request, $this->router);
     }
 
 }

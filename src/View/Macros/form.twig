@@ -31,6 +31,11 @@
     </div>
 {% endmacro %}
 
+{% macro input_hidden(name, value) %}
+    {% import _self as form %}
+    <input class="form-control" type="hidden" id="input_{{ name }}" name="{{ name }}"value="{{ value }}">
+{% endmacro %}
+
 {% macro input_select(name, label, placeholder, option_array, value, errors, options = { multiple: false, include_blank: true }) %}
     {% import _self as form %}
     <div class="form-group {% if errors %}has-error{% endif %}">

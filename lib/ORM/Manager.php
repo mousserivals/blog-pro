@@ -133,8 +133,7 @@ class Manager {
         $pagination['currentPage'] = $curPage;
         $pagination['first'] = $first;
         $pagination['last'] = $last;
-        $pagination['path'] = $_SERVER['HTTP_HOST'];
-
+        $pagination['path'] = $_SERVER['REQUEST_URI'];
         return $pagination;
 
     }

@@ -5,8 +5,8 @@ namespace Src\Controller;
 use Lib\Controller;
 use Lib\Form\Form;
 use Src\Entity\Post;
-use Src\Entity\Category;
 use Src\Form\PostAdd;
+use Src\Form\PostEdit;
 
 /**
  * Description of PostAdmin
@@ -31,29 +31,49 @@ class PostadminController extends Controller {
     }
 
     function add() {
-        $erreur = [];
-        $message = '';
         $form = new PostAdd($this->database(), new Post());
         $form->build();
         $form->handle($this->request->post());
         if ($this->request->method() == 'POST' && $form->isValid()) {
             $manager = $this->database()->getManagerOf(Post::class);
             $form->entity->setUserId(1);
-            $form->entity->setCategoryId(intval($this->request->post()['category_id']));
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->add($form->entity);
-            $message = 'Article bien enregisté';
+            $this->session->setFlash('Article bien enregisté', 'success');
+            $this->redirect('Postadmin.index');
         }
 
         $this->render('Admin/Post/add.html.twig', ['form' => $form->getView(), 'message' => $message]);
     }
 
-    function edit($param) {
-        
+    function edit($id) {
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->find($id);
+
+        $form = new PostEdit($this->database(), $article);
+        $form->build();
+
+        $form->handle($this->request->post());
+
+        if ($this->request->method() == 'POST' && $form->isValid()) {
+            $form->entity->setDateCreated(date("Y-m-d H:i:s"));
+            $manager->modify($form->entity);
+
+            $this->session->setFlash('Article bien Modifié', 'success');
+            $this->redirect('Postadmin.index');
+        }
+
+        $this->render('Admin/Post/edit.html.twig', ['form' => $form->getView(), 'message' => $message]);
     }
 
-    function delete($param) {
-        
+    function delete($id) {
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->find($id);
+
+        $manager->delete($article);
+
+        $this->session->setFlash('Article bien été supprimé', 'success');
+        $this->redirect('Postadmin.index');
     }
 
 }

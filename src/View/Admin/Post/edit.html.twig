@@ -14,13 +14,17 @@
         <div class="col-lg-8">
             <section class=" p-3  d-flex flex-column" id="blog">
                 <div class="my-auto">
-                    <h2 class="mb-5">Ajouter un Articles</h2>
+                    <h2 class="mb-5">Modifier un Articles</h2>
                     {% if message %}
                         <div class="alert alert-success" role="alert">
                             {{message}}
                         </div>
                     {% endif %}
+                    
+{#                    {{ dump(form) }}#}
+                    
                     {{ forms.start()}}
+                    {{ forms.input_hidden(form.id.name, form.id.value) }}
                     {{ forms.input_text(form.title.name, form.title.label, form.title.placeholder, form.title.value, form.title.errors) }}
                     {{ forms.input_select(form.categoryId.name, form.categoryId.label, form.categoryId.placeholder,
                                           form.categoryId.option_array, form.categoryId.value, form.categoryId.errors ) }}
