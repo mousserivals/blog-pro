@@ -64,7 +64,13 @@ class CategoryadminController extends Controller {
     }
 
     function delete($id) {
+        $manager = $this->database()->getManagerOf(Category::class);
+        $cat = $manager->find($id);
 
+        $manager->delete($cat);
+
+        $this->session->setFlash('La categorie a bien été supprimé', 'success');
+        $this->redirect('Categoryadmin.index');
     }
 
 }
