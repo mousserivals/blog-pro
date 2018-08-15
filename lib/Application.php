@@ -21,16 +21,13 @@ class Application {
         $this->router->get('/blog', 'Post#index', 'post.index');
         $this->router->get('/blog/:pagination', 'Post#index', 'post.index')->with('pagination', '[0-9]+');
 //        $this->router->get('/posts', 'Post#index', 'Post.index');
-        $this->router->get('/posts/:id', 'Post#show', 'Post.show');
-        $this->router->get('/posts/:id-:slug', function($id, $slug) {
-                    echo "Afficher $slug : $id";
-                }, 'post.show')->with('id', '[0-9]+')
-                ->with('slug', '[a-z\-0-9]+');
+//        $this->router->get('/posts/:id', 'Post#show', 'Post.show');
+        $this->router->get('/article/:id-:title', 'Post#show', 'Post.show')->with('id', '[0-9]+')->with('title', '[a-z\-0-9]+');
 
 
-        $this->router->post('/posts/:id', function($id) {
-            echo 'Poster l\'articles ' . $id;
-        });
+//        $this->router->post('/posts/:id', function($id) {
+//            echo 'Poster l\'articles ' . $id;
+//        });
        
         
         /*

@@ -26,5 +26,18 @@ class PostManager extends Manager {
 
         return $this->getHydrateAll($result);
     }
+    
+    
+    public function postWithUser($id) {
+
+        $query = sprintf("SELECT a.*, u.username FROM %s as a ,user as u  WHERE a.id = %s and a.user_id = u.id", $this->datastructure["table"], $id);
+        $requete = $this->pdo->prepare($query);
+        $requete->execute(array(":table" => $this->datastructure["table"], ":id" => $id));
+        $result = $requete->fetch(\PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+    
+    
 
 }

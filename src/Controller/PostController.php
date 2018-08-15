@@ -7,11 +7,12 @@ use Src\Entity\Post;
 use Src\Entity\Category;
 use Src\Entity\Comment;
 use Src\Manager\PostManager;
+use Src\Manager\CommentManager;
 
 class PostController extends Controller {
 
     function home() {
-        
+
 
         $this->render('Post/home.html.twig', ['title' => 'Bienvenu visiteur']);
     }
@@ -25,24 +26,13 @@ class PostController extends Controller {
     }
 
     function show($id) {
+        $manager = $this->database()->getManagerOf(Post::class);
+        $article = $manager->postWithUser($id);
 
-//        $post = new Post();
-////        $post->setId();
-//        $post->setUserId(1);
-//        $post->setTitle("title10");
-//        $post->setContent("titlemodified");
-//        $post->setCategoryId(1);
-//        $post->setDateCreated(date("Y-m-d H:i:s"));
-//         $postManager = $this->database()->getManagerOf(Post::class)->add($post);
-//        $manager = $this->database()->getManagerOf(Post::class);
-//        $article = $manager->find(1);
-//        $article->setTitle('titre modifie');
-//        $article->setContent('contenu modifie');
-//        $manager->modify($article);
-//        $manager->delete($article);
-//echo $article;
-//var_dump($article);
-//exit();
+        $manager = $this->database()->getManagerOf(Comment::class);
+        $comments = $manager->commentByPost($id);
+
+        $this->render('Post/show.html.twig', ['article' => $article,'comments' => $comments]);
     }
 
 }
