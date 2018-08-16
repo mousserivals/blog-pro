@@ -5,8 +5,8 @@
         <div class="col-lg-2">
             <div class="card" style="width: 18rem; margin-top: 130px;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="/admin/post">Gestion des articles</a></li>
-                    <li class="list-group-item"><a href="/admin/post/edit">Modifier l'articles</a></li>
+                    <li class="list-group-item"><a href="/admin/Post">Gestion des articles</a></li>
+                    <li class="list-group-item"><a href="/admin/Post/add">Ajouter une articles</a></li>
                     <li class="list-group-item"><a href="/admin/Category">Gestion des catégories</a></li>
                     <li class="list-group-item"><a href="/admin/Category/add">Ajouter une catégorie</a></li>
                 </ul>
@@ -15,12 +15,12 @@
         <div class="col-lg-8">
             <section class=" p-3  d-flex flex-column" id="blog">
                 <div class="my-auto">
-                    <h2 class="mb-5">Modifier un Articles</h2>
+                    <h2 class="mb-5">Modifier un Commentaire</h2>
                     {{ forms.start()}}
-                    {{ forms.input_hidden(form.id.name, form.id.value) }}
-                    {{ forms.input_text(form.title.name, form.title.label, form.title.placeholder, form.title.value, form.title.errors) }}
-                    {{ forms.input_select(form.categoryId.name, form.categoryId.label, form.categoryId.placeholder,
-                                          form.categoryId.option_array, form.categoryId.value, form.categoryId.errors ) }}
+                    {{ forms.input_select(form.postId.name, form.postId.label, form.postId.placeholder,
+                                          form.postId.option_array, form.postId.value, form.postId.errors ) }}
+                    {{ forms.input_select(form.userId.name, form.userId.label, form.userId.placeholder,
+                                          form.userId.option_array, form.userId.value, form.userId.errors ) }}
                     {{ forms.input_textarea(form.content.name, form.content.label, form.content.placeholder, form.content.value, form.content.errors) }}                      
                     {{ forms.submit('Ajouter') }}                      
 
