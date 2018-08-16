@@ -49,7 +49,13 @@ class Application {
         $this->router->post('/admin/category/add', 'Categoryadmin#add', 'Categoryadmin.add');
         $this->router->get('/admin/category/edit/:id', 'Categoryadmin#edit', 'Categoryadmin.edit')->with('id', '[0-9]+');
         $this->router->post('/admin/category/edit/:id', 'Categoryadmin#edit', 'Categoryadmin.edit')->with('id', '[0-9]+');        
-        $this->router->get('/admin/category/delete/:id', 'Categoryadmin#delete', 'Categoryadmin.delete')->with('id', '[0-9]+');        
+        $this->router->get('/admin/category/delete/:id', 'Categoryadmin#delete', 'Categoryadmin.delete')->with('id', '[0-9]+');    
+        
+        $this->router->get('/admin/comment', 'Commentadmin#index', 'Commentadmin.index');
+        $this->router->get('/admin/comment/add', 'Commentadmin#add', 'Commentadmin.add');
+        $this->router->post('/admin/comment/add', 'Commentadmin#add', 'Commentadmin.add');
+        
+        
         $this->router->getRoute($this->request, $this->router);
     }
 

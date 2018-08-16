@@ -12,6 +12,10 @@
     margin-bottom:10px; 
 }
 
+a.postBlog  {
+    background-color: grey;
+} 
+
 a.postBlog:hover  {
     background-color: grey;
 } 

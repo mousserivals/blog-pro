@@ -16,7 +16,7 @@ class User  extends Entity {
     public static function dataStructure() {
         return [
             "table" => "user",
-            "manager" => "Src\Manager\userManager",
+            "manager" => "Src\Manager\UserManager",
             "primaryKey" => "id",
             "columns" => [
                 "id" => [

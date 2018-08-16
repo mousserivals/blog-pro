@@ -18,8 +18,7 @@ class PostController extends Controller {
     }
 
     function index($newpage = null) {
-//        $manager = $this->database()->getManagerOf(Comment::class);
-//        $article = $manager->commentByPost(1);
+
         $manager = $this->database()->getManagerOf(Post::class);
         $paginations = $manager->paginate($newpage);
         $this->render('Post/index.html.twig', ['pagination' => $paginations]);
