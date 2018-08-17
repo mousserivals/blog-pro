@@ -10,12 +10,12 @@ namespace Lib;
 class Session {
 
     public function setFlash($message, $type = 'error') {
-        $_SESSION['flash'] = array('message' =>$message, 'type' =>  $type) ;
+        $_SESSION['flash'] = array('message' => $message, 'type' => $type);
     }
 
     public function getFlash() {
         if (isset($_SESSION['flash'])) {
-            return $_SESSION['flash'];
+            echo '<div class="alert alert-' . $_SESSION['flash']['type'] . '">' . $_SESSION['flash']['message'] . '</div>';
             unset($_SESSION['flash']);
         }
     }
