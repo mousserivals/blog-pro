@@ -48,6 +48,8 @@ class Application {
         $this->router->get('/admin/post/delete/:id', 'Postadmin#delete', 'Postadmin.delete')->with('id', '[0-9]+');
         
         $this->router->get('/admin/category', 'Categoryadmin#index', 'Categoryadmin.index');
+        $this->router->get('/admin/category/add', 'Categoryadmin#add', 'Categoryadmin.add');
+        $this->router->post('/admin/category/add', 'Categoryadmin#add', 'Categoryadmin.add');
         
         $this->router->getRoute($this->request, $this->router);
     }
