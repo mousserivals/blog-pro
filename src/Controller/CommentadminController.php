@@ -62,7 +62,13 @@ class CommentadminController extends Controller {
     }
 
     function delete($id) {
+        $manager = $this->database()->getManagerOf(Comment::class);
+        $comment = $manager->find($id);
 
+        $manager->delete($comment);
+
+        $this->session->setFlash('Le commentaire a bien été supprimé', 'success');
+        $this->redirect('Commentadmin.index');
     }
 
 }
