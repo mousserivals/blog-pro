@@ -1,0 +1,30 @@
+{% extends'base.html.twig' %}
+{% import "Macros/form.twig" as forms %}
+{% block body %}
+    <section class="margin20" id="article">
+        <div class="my-auto">
+            <h2 class="mb-1">{{article.title}}</h2>    
+            <span class="sub-title">Crée le {{article.date_created | date("m/d/Y")}} par {{article.username}}</span> 
+            <p class="blog">
+                {{article.content}}
+            </p>
+
+        </div>
+    </section>
+    <section class="margin20" id="connentform">
+        <div class="my-auto">
+            <h3 class="mb-5">Commantaire</h3>  
+            {{ forms.comment()}}
+    </section>   
+    <section class="margin20" id="connent">   
+{#                {{ dump(comments) }}#}
+        {% for c in comments %}
+            <div class="card border-secondary mb-3">
+                <div class="card-body text-secondary">
+                    <h5 class="card-title">{{c.username }} <span class="sub-title">Le {{ c.dateCreated | date("m/d/Y")}}</span></h5>
+                    <p class="card-text">{{ c.content }}</p>
+                </div>
+            </div>
+    {% endfor %}   
+</section>       
+{% endblock %}    

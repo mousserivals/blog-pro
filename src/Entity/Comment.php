@@ -47,7 +47,7 @@ class Comment extends Entity {
     }
 
     function getPostId() {
-        return $this->post;
+        return $this->postId;
     }
 
     function getUserId() {
@@ -66,8 +66,8 @@ class Comment extends Entity {
         $this->id = $id;
     }
 
-    function setPostId($post) {
-        $this->post = $post;
+    function setPostId($postId) {
+        $this->postId = $postId;
     }
 
     function setUserId($userId) {

@@ -72,3 +72,25 @@
         <button type="submit" class="btn btn-primary pull-right">{{ name }}</button>
     </div>
 {% endmacro %}    
+
+{% macro comment() %}
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">Nom</label>
+                <input type="text" class="form-control" id="name">       
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+        </div>
+    </div> 
+    <div class="form-group">
+        <textarea rows="2" class="form-control" id="comment" name="comment" placeholder="Votre commantaire ..."></textarea>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
+{% endmacro %} 
