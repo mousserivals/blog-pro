@@ -50,7 +50,8 @@ class Application {
         $this->router->get('/admin/category', 'Categoryadmin#index', 'Categoryadmin.index');
         $this->router->get('/admin/category/add', 'Categoryadmin#add', 'Categoryadmin.add');
         $this->router->post('/admin/category/add', 'Categoryadmin#add', 'Categoryadmin.add');
-        
+        $this->router->get('/admin/category/edit/:id', 'Categoryadmin#edit', 'Categoryadmin.edit')->with('id', '[0-9]+');
+        $this->router->post('/admin/category/edit/:id', 'Categoryadmin#edit', 'Categoryadmin.edit')->with('id', '[0-9]+');        
         $this->router->getRoute($this->request, $this->router);
     }
 
