@@ -23,13 +23,8 @@ class Application {
 //        $this->router->get('/posts', 'Post#index', 'Post.index');
 //        $this->router->get('/posts/:id', 'Post#show', 'Post.show');
         $this->router->get('/article/:id-:title', 'Post#show', 'Post.show')->with('id', '[0-9]+')->with('title', '[a-z\-0-9]+');
-
-
-//        $this->router->post('/posts/:id', function($id) {
-//            echo 'Poster l\'articles ' . $id;
-//        });
+        $this->router->get('/registration', 'User#registration', 'User.registration');
        
-        
         /*
          * admin
          */
