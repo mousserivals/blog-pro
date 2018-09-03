@@ -24,6 +24,7 @@ class Application {
 //        $this->router->get('/posts/:id', 'Post#show', 'Post.show');
         $this->router->get('/article/:id-:title', 'Post#show', 'Post.show')->with('id', '[0-9]+')->with('title', '[a-z\-0-9]+');
         $this->router->get('/registration', 'User#registration', 'User.registration');
+        $this->router->post('/registration', 'User#registration', 'User.registration');
        
         /*
          * admin

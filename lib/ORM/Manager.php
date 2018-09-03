@@ -109,7 +109,7 @@ class Manager {
     public function paginate($newpage = null,$perPage = null) {
         $pagination = [];
         $nbArt = (int)$this->count();
-        $perPage = ($perPage)? $perPage :  3;
+        $perPage = ($perPage)? $perPage :  5;
         $nbage = ceil($nbArt/$perPage);
         $cPage = (isset($newpage))? $newpage :  1 ;
         $current = ($cPage-1)*$perPage;

@@ -23,6 +23,10 @@ class Request {
         return isset($_GET);
     }
 
+    public function files() {
+        return $_FILES;
+    }
+
     public function getExists($key) {
         return isset($_GET[$key]) ? $_GET[$key] : null;
     }

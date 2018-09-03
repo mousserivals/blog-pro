@@ -11,7 +11,7 @@
 {% endmacro %}
 
 {% macro start() %}
-    <form action="" method="POST"  >
+    <form action="" method="POST"  enctype="multipart/form-data" >
     {% endmacro %}
 
     {% macro end() %}
@@ -23,9 +23,21 @@
     {% import _self as form %}
 
     <div class="form-group ">
-        <label class="control-label col-sm-3" for="input_{{ name }}">{{ label }}</label>
+        <label class="control-label col-sm-6" for="input_{{ name }}">{{ label }}</label>
         <div class="col-sm-12">
             <input class="form-control {% if errors %}is-invalid{% endif %}" type="text" id="input_{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">
+            {{ form.error_block(errors) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro input_password(name, label, placeholder, value, errors) %}
+    {% import _self as form %}
+
+    <div class="form-group ">
+        <label class="control-label col-sm-12" for="input_{{ name }}">{{ label }}</label>
+        <div class="col-sm-12">
+            <input class="form-control {% if errors %}is-invalid{% endif %}" type="password" id="input_{{ name }}" name="{{ name }}" placeholder="{{ placeholder }}" value="{{ value }}">
             {{ form.error_block(errors) }}
         </div>
     </div>

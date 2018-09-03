@@ -21,9 +21,11 @@ abstract class Entity{
 
     public function hydrate(array $donnees) {
         foreach ($donnees as $attribut => $valeur) {
-            $methode = 'set' . ucfirst(static::dataStructure()['columns'][$attribut]['property']);
-            if (is_callable([$this, $methode])) {
-                $this->$methode($valeur);
+            if (isset(static::dataStructure()['columns'][$attribut])) {
+                $methode = 'set' . ucfirst(static::dataStructure()['columns'][$attribut]['property']);
+                if (is_callable([$this, $methode])) {
+                    $this->$methode($valeur);
+                }
             }
         }      
        
