@@ -1,0 +1,56 @@
+{% extends'base.html.twig' %}
+{% import "Macros/form.twig" as forms %}
+{% block body %}
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
+        <div class="my-auto">
+            <h2 class="mb-5">Création de votre compte</h2>
+            {{ forms.start()}}
+            <div class="row">
+                <div class="col-sm-4 text-center">
+                    <div class="kv-avatar">
+                        <div class="file-loading">
+                            <input id="avatar-1" name="avatar" type="file" required>
+                        </div>
+                    </div>
+                    <div class="kv-avatar-hint"><small>Select file < 1500 KB</small></div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ forms.input_text(form.email.name, form.email.label, form.email.placeholder, form.email.value, form.email.errors) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ forms.input_text(form.username.name, form.username.label, form.username.placeholder, form.username.value, form.username.errors) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ forms.input_text(form.firstname.name, form.firstname.label, form.firstname.placeholder, form.firstname.value, form.firstname.errors) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ forms.input_text(form.lastname.name, form.lastname.label, form.lastname.placeholder, form.lastname.value, form.lastname.errors) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ forms.input_password(form.password.name, form.password.label, form.password.placeholder, form.password.value, form.password.errors) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ forms.input_password(form.password2.name, form.password2.label, form.password2.placeholder, form.password2.value, form.password2.errors) }}
+                        </div>
+                    </div>                            
+                    <div class="form-group">
+                        {{ forms.submit('Ajouter') }}  
+                    </div>
+                </div>
+            </div>
+            {{ forms.end()}}
+            <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
+        </div>
+
+    </section>    
+
+{% endblock %}
+
+

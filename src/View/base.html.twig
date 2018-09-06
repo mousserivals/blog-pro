@@ -15,10 +15,11 @@
         <link href="../../css/fonts/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/devicons/css/devicons.min.css" rel="stylesheet">
         <link href="../../css/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-
+        <link href="../../css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css"/>
         <!-- Custom styles for this template -->
         <link href="../../css/resume.min.css" rel="stylesheet">
-        <link href="http://blog-pro.com/css/style.css" rel="stylesheet">
+        <link href="../../css/style.css" rel="stylesheet">
 
     </head>
     <body id="page-top">
@@ -40,6 +41,9 @@
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="/blog/">blog</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="/registration">registration</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -48,29 +52,42 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../../js/libs/jquery/jquery.min.js"></script>
-    <script src="../../js/libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="http://blog-pro.com/js/libs/jquery/jquery.min.js"></script>
+    <script src="http://blog-pro.com/js/libs/bootstrap/bootstrap.bundle.min.js"></script>
 
-    <!-- Plugin JavaScript -->
-{#    <script src="../../js/libs/jquery-easing/jquery.easing.min.js"></script>#}
+    {#    <link href="../../js/libs/fileinput/themes/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>#}
+    <script src="http://blog-pro.com/js/libs/fileinput/plugins/sortable.js" type="text/javascript"></script>
+    <script src="http://blog-pro.com/js/libs/fileinput/fileinput.min.js" type="text/javascript"></script>
+    <script src="http://blog-pro.com/js/libs/fileinput/locales/fr.js" type="text/javascript"></script>
+    <script src="http://blog-pro.com/js/libs/fileinput/themes/explorer-fa/theme.js" type="text/javascript"></script>
+    <script src="http://blog-pro.com/js/libs/fileinput/themes/fa/theme.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 
-    <!-- Custom scripts for this template -->
-{#    <script src="../../js/resume.min.js"></script>#}
     <script>
-{#        $(document).ready(function () {
-            $("a.page-link").click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: window.location.href,
-                    method: "GET",
-                    context: document.body
-                }).done(function (data) {
-                    alert(data);
-{#                    $(this).addClass("done");#}
-                });
+        $(document).ready(function () {
+            var btnCust = '<button type="button" class="btn btn-secondary" title="Add picture tags" ' +
+                    'onclick="alert(\'Call your custom code here.\')">' +
+                    '<i class="glyphicon glyphicon-tag"></i>' +
+                    '</button>';
+            $("#avatar-1").fileinput({
+                overwriteInitial: true,
+                maxFileSize: 1500,
+                showClose: false,
+                showCaption: false,
+                browseLabel: '',
+                removeLabel: '',
+                browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
+                removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
+                removeTitle: 'Cancel or reset changes',
+                elErrorContainer: '#kv-avatar-errors-1',
+                msgErrorClass: 'alert alert-block alert-danger',
+                defaultPreviewContent: '<img src="/img/avatars/default_avatar_male.jpg" alt="Your Avatar">',
+                layoutTemplates: {main2: '{preview} ' + btnCust + ' {remove} {browse}'},
+                allowedFileExtensions: ["jpg", "png", "gif"]
             });
-        });#}
-    </script>
+        });
+
+    </script>   
 </body>
 
 </html>

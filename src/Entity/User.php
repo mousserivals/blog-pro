@@ -27,17 +27,29 @@ class User  extends Entity {
                     "type" => "string",
                     "property" => "avatar"
                 ],
+                "email" => [
+                    "type" => "string",
+                    "property" => "email"
+                ],
                 "username" => [
                     "type" => "string",
                     "property" => "username"
+                ],
+                "firstname" => [
+                    "type" => "string",
+                    "property" => "firstname"
+                ],
+                "lastname" => [
+                    "type" => "string",
+                    "property" => "lastname"
                 ],
                 "password" => [
                     "type" => "string",
                     "property" => "password"
                 ],
                 "role" => [
-                    "type" => "role",
-                    "property" => "string"
+                    "type" => "string",
+                    "property" => "role"
                 ],
                 "date_created" => [
                     "type" => "datetime",
@@ -51,12 +63,24 @@ class User  extends Entity {
         return $this->id;
     }
 
-    function geAvatar() {
+    function getAvatar() {
         return $this->avatar;
+    }
+
+    function getEmail() {
+        return $this->email;
     }
 
     function getUsername() {
         return $this->username;
+    }
+
+    function getFirstname() {
+        return $this->firstname;
+    }
+    
+    function getLastname() {
+        return $this->lastname;
     }
 
     function getPassword() {
@@ -79,15 +103,26 @@ class User  extends Entity {
         $this->avatar = $avatar;
     }
 
+    function setEmail($email) {
+        $this->email = $email;
+    }
+
     function setUsername($username) {
         $this->username = $username;
+    }
+
+    function setFirstname($firstname) {
+        $this->firstname = $firstname;
+    }
+    function setLastname($lastname) {
+        $this->lastname = $lastname;
     }
 
     function setPassword($password) {
         $this->password = $password;
     }
 
-    function setRole($Role) {
+    function setRole($role) {
         $this->role = $role;
     }
 

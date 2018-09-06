@@ -12,7 +12,6 @@ abstract class Form {
     protected $database;
     public $entity;
     public $form;
-    public $data;
 
     public function __construct($database, $entity) {
         $this->database = $database;
@@ -42,6 +41,7 @@ abstract class Form {
                     $field['errors'][] = $validator->message;
                     $error = false;
                 }
+                
             }
         }
         return $error;
