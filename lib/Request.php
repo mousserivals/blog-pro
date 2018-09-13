@@ -53,5 +53,11 @@ class Request {
 
         return $_SERVER['HTTP_HOST'];
     }
+    public function getSession($name) {
+        return isset($_SESSION[$name]) ? $_SESSION[$name] : null;
+    }
+    public function setSession($name, $key) {
+        return $_SESSION[$name] = [$key];
+    }
 
 }
