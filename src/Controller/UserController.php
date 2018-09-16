@@ -27,7 +27,7 @@ class UserController extends Controller {
             $form->entity->setRole('visitor');
             $form->entity->setDateCreated(date("Y-m-d H:i:s"));
             $manager->add($form->entity);
-            $this->session->setFlash('Votre compte à bien enregisté', 'success');
+            $this->session->setFlash('Votre compte a bien été enregistré', 'success');
             $this->redirect('Postadmin.index');
         }
 
@@ -43,7 +43,8 @@ class UserController extends Controller {
             $manager = $this->database()->getManagerOf(User::class);
             $user = $manager->findByEmail($this->request->post()['email'], $this->request->post()['password']);
             if ($user) {
-                $this->request->setSession("user", $user);
+                $userArray = ["id" => base64_encode($user->id), "name" => $user->username, "role" => $user->role];
+                $this->request->setSession("user", $userArray);
                 $this->redirect('Postadmin.index');
             }
         }
