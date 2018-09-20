@@ -23,7 +23,11 @@
                         <tbody>
                             <tr>
                                 <th>Categorie</th>
-                                <td>{{article.categoryId}}</td>
+                                <td>{{article.title_cat}}</td>
+                            </tr>
+                            <tr>
+                                <th>Autheur</th>
+                                <td>{{article.username}}</td>
                             </tr>
                             <tr>
                                 <th>Titre</th>
@@ -36,7 +40,39 @@
 
                         </tbody>
                     </table>
+                    <h4>Commentaires sur l'article</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">Createur</th>
+                                    <th scope="col">Article</th>
+                                    <th scope="col">Contenu</th>
+                                    <th scope="col">Validation</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Action</th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in comments %}
+                                    <tr>
+                                        <th scope="row">{{p.id}}</th>
+                                        <td><a href="">{{p.userId}}</a></td>
+                                        <td><a href="/admin/post/show/{{p.postId}}">{{p.postId}}</a></td>
+                                        <td>{{p.content}}</td>
+                                        <td><input type="checkbox" name="valided" data-size="mini" data-id="{{p.id}}" data-off-text="non" data-on-text="oui" {% if p.valided %} checked="checked" {% endif %} ></td>
+                                        <td>{{p.dateCreated|date}}</td>
+                                        <td>
+                                            <a href="/admin/comment/show/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Voir article"><i class="fas fa-eye"></i></a>
+                                            <a href="/admin/comment/edit/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Modifier article"><i class="fas fa-edit"></i></a>
+                                            <a href="/admin/comment/delete/{{p.id}}" onclick="return confirm('Etes vous sûr de vouloir supprimer cette article ?')" style="margin-right: 10px;" data-toggle="tooltip" title="Supprimer article"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>                        
                 </div>
             </section>   
         </div>        
