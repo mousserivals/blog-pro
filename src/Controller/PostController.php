@@ -29,7 +29,7 @@ class PostController extends Controller {
         $article = $manager->postWithUser($id);
 
         $manager = $this->database()->getManagerOf(Comment::class);
-        $comments = $manager->commentByPost($id);
+        $comments = $manager->commentByPostWithValided($id);
 
         $this->render('Post/show.html.twig', ['article' => $article,'comments' => $comments]);
     }

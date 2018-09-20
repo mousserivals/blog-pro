@@ -57,6 +57,7 @@ class Application {
         $this->router->get('/admin/comment/edit/:id', 'Commentadmin#edit', 'Commentadmin.edit')->with('id', '[0-9]+');
         $this->router->post('/admin/comment/edit/:id', 'Commentadmin#edit', 'Commentadmin.edit')->with('id', '[0-9]+');
         $this->router->get('/admin/comment/delete/:id', 'Commentadmin#delete', 'Commentadmin.delete')->with('id', '[0-9]+');
+        $this->router->post('/admin/comment/valided', 'Commentadmin#valided', 'Commentadmin.valided');
 
         $this->router->getRoute($this->request, $this->router);
     }

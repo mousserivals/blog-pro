@@ -28,6 +28,7 @@
                                     <th scope="col">Createur</th>
                                     <th scope="col">Article</th>
                                     <th scope="col">Contenu</th>
+                                    <th scope="col">Validation</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Action</th>
 
@@ -40,6 +41,7 @@
                                         <td><a href="">{{p.userId}}</a></td>
                                         <td><a href="/admin/post/show/{{p.postId}}">{{p.postId}}</a></td>
                                         <td>{{p.content}}</td>
+                                        <td><input type="checkbox" name="valided" data-size="mini" data-id="{{p.id}}" data-off-text="non" data-on-text="oui" {% if p.valided %} checked="checked" {% endif %} ></td>
                                         <td>{{p.dateCreated|date}}</td>
                                         <td>
                                             <a href="/admin/comment/show/{{p.id}}" style="margin-right: 10px;" data-toggle="tooltip" title="Voir article"><i class="fas fa-eye"></i></a>

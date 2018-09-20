@@ -34,6 +34,10 @@ class Comment extends Entity {
                     "type" => "string",
                     "property" => "content"
                 ],
+                "valided" => [
+                    "type" => "boolean",
+                    "property" => "valided"
+                ],
                 "date_created" => [
                     "type" => "datetime",
                     "property" => "dateCreated"
@@ -57,6 +61,10 @@ class Comment extends Entity {
     function getContent() {
         return $this->content;
     }
+    
+    function getValided() {
+        return $this->valided;
+    }
 
     function getDateCreated() {
         return $this->dateCreated;
@@ -76,6 +84,10 @@ class Comment extends Entity {
 
     function setContent($content) {
         $this->content = $content;
+    }
+
+    function setValided($valided) {
+        $this->valided = $valided;
     }
 
     function setDateCreated($date) {

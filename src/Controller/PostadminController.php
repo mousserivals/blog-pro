@@ -28,8 +28,8 @@ class PostadminController extends Controller {
 
     function show($id) {
         $manager = $this->database()->getManagerOf(Post::class);
-        $article = $manager->find($id);
-        
+        $article = $manager->postWithUser($id);
+
         $this->render('Admin/Post/show.html.twig', ['article' => $article]);
     }
 

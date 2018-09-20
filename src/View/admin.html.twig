@@ -19,6 +19,7 @@
         <!-- Custom styles for this template -->
         <link href="http://blog-pro.com/css/resume.min.css" rel="stylesheet">
         <link href="http://blog-pro.com/css/style.css" rel="stylesheet">
+        <link href="http://blog-pro.com/css/bootstrap-switch.min.css" rel="stylesheet">
 
     </head>
     <body style="padding: 0 ">
@@ -43,13 +44,13 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav">
-                {#    <li class="nav-item">
-                        <a class="nav-link" href="/admin/user/moi">Profil</a>
-                    </li>#}
+                    {#    <li class="nav-item">
+                            <a class="nav-link" href="/admin/user/moi">Profil</a>
+                        </li>#}
                     <li class="nav-item">
                         <a class="nav-link" href="/deconnection">Deconnection</a>
                     </li>
-                   
+
                 </ul>    
             </div>
         </nav>
@@ -59,10 +60,29 @@
     </div>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="../../js/libs/jquery/jquery.min.js"></script>
-    <script src="../../js/libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="http://blog-pro.com/js/libs/jquery/jquery.min.js"></script>
+    <script src="http://blog-pro.com/js/libs/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="js/highlight.js"></script>
+    <script src="https://unpkg.com/bootstrap-switch"></script>
     <script>
+        $(document).ready(function () {
+            $("input[name='valided']").bootstrapSwitch();
+            $.fn.bootstrapSwitch.defaults.size = 'mini';
+            $("input[name='valided']").on('switchChange.bootstrapSwitch', function (event, state) {
+        {#   console.log(this); // DOM element
+           console.log(event); // jQuery event
+           console.log(state); // true | false#}
+                       jQuery.ajax({
+                           url: '/admin/comment/valided',
+                           type: 'post',
+                           data: {'id': $(this).data("id"), 'res': state},
+                           error: function (response) {
+                               console.log(response);
+                           }
+                       });
+                   });
 
+               });
     </script>
 </body>
 </html>
