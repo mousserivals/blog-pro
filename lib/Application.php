@@ -30,8 +30,8 @@ class Application {
         $this->router->get('/connection', 'User#connection', 'User.connection');
         $this->router->post('/connection', 'User#connection', 'User.connection');
         $this->router->get('/deconnection', 'User#deconnection', 'User.deconnection');
-        $this->router->post('/contact', 'send#contact', 'send.contact');
-        $this->router->get('/contact', 'send#contact', 'send.contact');        
+        $this->router->post('/contact', 'Contact#send', 'Contact.send');
+        $this->router->get('/contact', 'Contact#send', 'Contact.send');        
         /*
          * admin
          */

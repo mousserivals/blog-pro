@@ -1,0 +1,7 @@
+{% macro message() %}
+    {% if session() %}
+        <div class="alert alert-{{session().type}}" role="alert">
+            {{ session().message  }}
+        </div>
+    {% endif %}
+{% endmacro %}

@@ -1,0 +1,43 @@
+{% extends'base.html.twig' %}
+{% import "Macros/form.twig" as forms %}
+{% import "Macros/contact.twig" as contact %}
+{% block body %}
+
+    <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
+        <div class="my-auto">
+            <h2 class="mb-5">Contact</h2>
+            {{ contact.message()}}
+            {{ forms.start()}}
+            <div class="row">
+
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ forms.input_text(form.firstname.name, form.firstname.label, form.firstname.placeholder, form.firstname.value, form.firstname.errors) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ forms.input_text(form.lastname.name, form.lastname.label, form.lastname.placeholder, form.lastname.value, form.lastname.errors) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ forms.input_text(form.email.name, form.email.label, form.email.placeholder, form.email.value, form.email.errors) }}
+                        </div>
+                    </div>
+                    <div class="row">    
+                        <div class="col-sm-12">
+                            {{ forms.input_textarea(form.message.name, form.message.label, form.message.placeholder, form.message.value, form.message.errors) }}
+                        </div>
+                    </div>                            
+                    <div class="form-group">
+                        {{ forms.submit('Envoyer') }}  
+                    </div>
+                </div>
+            </div>
+            {{ forms.end()}}
+            <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
+        </div>
+
+    </section>    
+
+{% endblock %}
