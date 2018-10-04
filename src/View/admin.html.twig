@@ -67,22 +67,49 @@
     <script>
         $(document).ready(function () {
             $("input[name='valided']").bootstrapSwitch();
+            $("input[name='report']").bootstrapSwitch();
             $.fn.bootstrapSwitch.defaults.size = 'mini';
             $("input[name='valided']").on('switchChange.bootstrapSwitch', function (event, state) {
-        {#   console.log(this); // DOM element
-           console.log(event); // jQuery event
-           console.log(state); // true | false#}
-                       jQuery.ajax({
-                           url: '/admin/comment/valided',
-                           type: 'post',
-                           data: {'id': $(this).data("id"), 'res': state},
-                           error: function (response) {
-                               console.log(response);
-                           }
-                       });
-                   });
+                jQuery.ajax({
+                    url: '/admin/comment/valided',
+                    type: 'post',
+                    data: {'id': $(this).data("id"), 'res': state},
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+            $("input[name='report']").on('switchChange.bootstrapSwitch', function (event, state) {
+                if (state == false) {
+                    jQuery.ajax({
+                        url: '/admin/comment/removeReport',
+                        type: 'post',
+                        data: {'id': $(this).data("id")},
+                    {#    success: function (response) {
+                            console.log(response);
+                        },#}
+                        error: function (response) {
+                            console.log(response);
+                        }
+                    });
 
-               });
+                } else {
+                    jQuery.ajax({
+                        url: '/admin/comment/report',
+                        type: 'post',
+                        data: {'id': $(this).data("id")},
+{#                        success: function (response) {
+                            console.log(response);
+                        },#}
+                        error: function (response) {
+                            console.log(response);
+                        }
+                    });
+                }
+
+            });
+
+        });
     </script>
 </body>
 </html>

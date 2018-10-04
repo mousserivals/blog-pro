@@ -54,12 +54,15 @@ class Application {
         $this->router->get('/admin/category/delete/:id', 'Categoryadmin#delete', 'Categoryadmin.delete')->with('id', '[0-9]+');
 
         $this->router->get('/admin/comment', 'Commentadmin#index', 'Commentadmin.index');
+        $this->router->get('/admin/comment/show/:id', 'Commentadmin#show', 'Commentadmin.show')->with('id', '[0-9]+');
         $this->router->get('/admin/comment/add', 'Commentadmin#add', 'Commentadmin.add');
         $this->router->post('/admin/comment/add', 'Commentadmin#add', 'Commentadmin.add');
         $this->router->get('/admin/comment/edit/:id', 'Commentadmin#edit', 'Commentadmin.edit')->with('id', '[0-9]+');
         $this->router->post('/admin/comment/edit/:id', 'Commentadmin#edit', 'Commentadmin.edit')->with('id', '[0-9]+');
         $this->router->get('/admin/comment/delete/:id', 'Commentadmin#delete', 'Commentadmin.delete')->with('id', '[0-9]+');
         $this->router->post('/admin/comment/valided', 'Commentadmin#valided', 'Commentadmin.valided');
+        $this->router->post('/admin/comment/report', 'Commentadmin#report', 'Commentadmin.report');
+        $this->router->post('/admin/comment/removeReport', 'Commentadmin#removeReport', 'Commentadmin.removeReport');
 
         $this->router->getRoute($this->request, $this->router);
     }

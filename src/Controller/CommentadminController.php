@@ -14,7 +14,14 @@ class CommentadminController extends Controller {
 
         $manager = $this->database()->getManagerOf(Comment::class);
         $paginations = $manager->paginate($newpage, 7);
+
         $this->render('Admin/Comment/index.html.twig', ['pagination' => $paginations]);
+    }
+    function show($id) {
+
+        $manager = $this->database()->getManagerOf(Comment::class);
+        $comment = $manager->commentByPost($id);
+        $this->render('Admin/Comment/show.html.twig', ['comment' => $comment]);
     }
 
     function add() {
@@ -58,12 +65,36 @@ class CommentadminController extends Controller {
     function valided() {
         if ($this->request->method() == 'POST') {
             $id = intval($this->request->post()['id']);
-            $res = ($this->request->post()['res'] == 'false')? 0 : 1;
+            $res = ($this->request->post()['res'] == 'false') ? 0 : 1;
 
             $manager = $this->database()->getManagerOf(Comment::class);
             $val = $manager->validComment($id, $res);
-            
+
             echo $res;
+        }
+    }
+
+    function report() {
+        if ($this->request->method() == 'POST') {
+
+            $id = intval($this->request->post()['id']);
+
+            $manager = $this->database()->getManagerOf(Comment::class);
+            $val = $manager->reportComment($id);
+
+            echo 'report';
+        }
+    }
+    
+    function removeReport() {
+        if ($this->request->method() == 'POST') {
+
+            $id = intval($this->request->post()['id']);
+
+            $manager = $this->database()->getManagerOf(Comment::class);
+            $val = $manager->removeReportComment($id);
+
+            echo 'removeReport';
         }
     }
 

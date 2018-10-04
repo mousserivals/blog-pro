@@ -91,6 +91,19 @@
                 layoutTemplates: {main2: '{preview} ' + btnCust + ' {remove} {browse}'},
                 allowedFileExtensions: ["jpg", "png", "gif"]
             });
+
+            $("#btn_signaler").click(function () {
+                confirm('Merci d\'avoir signaler ce post, un de nos modérateurs se chargera de le vérifier.');
+                
+                jQuery.ajax({
+                    url: '/admin/comment/report',
+                    type: 'post',
+                    data: {'id': $(this).data("id")},
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
         });
 
     </script>   

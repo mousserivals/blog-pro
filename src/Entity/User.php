@@ -119,7 +119,7 @@ class User  extends Entity {
     }
 
     function setPassword($password) {
-        $this->password = $password;
+        $this->password = md5($password);
     }
 
     function setRole($role) {
