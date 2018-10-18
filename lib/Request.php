@@ -2,11 +2,6 @@
 
 namespace Lib;
 
-/**
- * Description of Request
- *
- * @author steph
- */
 class Request {
 
     public function cookie($key) {
