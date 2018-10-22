@@ -68,8 +68,8 @@ class Route {
 
         if (is_string($this->callable)) {
             $params = explode("#", $this->callable);
-            $controller = "Src\\Controller\\" . $params[0] . "Controller";
-            $controller = new $controller($request,$router);
+            $controller = "Src\\Controller\\" . $params[0] . "Controller";   
+            $controller = new $controller($request,$router);           
             return call_user_func_array([$controller,  $params[1]], $this->matches);
         } else {
             throw new \Exception('callable does not string');

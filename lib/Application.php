@@ -3,7 +3,6 @@
 namespace Lib;
 
 use Lib\Router\Router;
-use Lib\Controller;
 
 session_start();
 
@@ -18,6 +17,8 @@ class Application {
     }
 
     public function appRun() {
+        
+        $this->router->role(['admin'=>['admin']]);
 
         $this->router->get('/', 'Post#home', 'Post.home');
         $this->router->get('/blog', 'Post#index', 'post.index');

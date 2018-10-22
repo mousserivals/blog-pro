@@ -1,10 +1,13 @@
 {% extends'base.html.twig' %}
 {% import "Macros/form.twig" as forms %}
+
+{% import "Macros/contact.twig" as contact %}
 {% block body %}
 
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
         <div class="my-auto">
             <h2 class="mb-5">Création de votre compte</h2>
+            {{ contact.message()}}
             {{ forms.start()}}
             <div class="row">
                 <div class="col-sm-4 text-center">

@@ -1,10 +1,18 @@
 {% extends'base.html.twig' %}
 {% import "Macros/form.twig" as forms %}
+
+{% import "Macros/contact.twig" as contact %}
 {% block body %}
 
     <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
         <div class="my-auto">
             <h2 class="mb-5">Connection</h2>
+            {% if session() %}
+                <div class="alert alert-{{session().type}}" role="alert">
+                    {{ session().message  }}
+                </div>
+            {% endif %}
+            {{ contact.message()}}
             {{ forms.start()}}
             <div class="row">
                 <div class="col-sm-8">

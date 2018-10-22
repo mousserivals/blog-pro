@@ -3,6 +3,7 @@
 namespace Src\Controller;
 
 use Lib\Controller;
+use Lib\Auth;
 use Src\Entity\User;
 use Src\Manager\UserManager;
 use Src\Form\UserAdd;
@@ -44,8 +45,14 @@ class UserController extends Controller {
             $user = $manager->findByEmail($this->request->post()['email'], $this->request->post()['password']);
             if ($user) {
                 $userArray = ["id" => base64_encode($user->id), "name" => $user->username, "role" => $user->role];
-                $this->request->setSession("user", $userArray);
-                $this->redirect('Postadmin.index');
+                $this->session->write("User", $userArray);
+                $this->session->setFlash("user", $userArray);
+                if ($this->session->isLogged()) {
+                    $this->redirect('Postadmin.index');
+                } else {
+                    $this->session->setFlash('Bonjour ' . $user->username . ', vous êtes maintenant identifié.', 'success');
+                    $this->redirect('User.connection');
+                }
             }
         }
         $this->render('User/connection.html.twig', ['form' => $form->getView()]);

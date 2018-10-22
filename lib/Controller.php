@@ -20,12 +20,12 @@ abstract class Controller {
         $this->request = $request;
         $this->router = $router;
         $this->database = new PDOFactory();
-        $this->session = new session();
+        $this->session = Session::getInstance();
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../src/View/');
         $this->twig = new \Twig_Environment($loader, ['cache' => false, 'debug' => true]);
         $this->twig->addExtension(new \Twig_Extension_Debug());
         $this->twig->addFunction(new \Twig_SimpleFunction('session', function() {
-                return $this->session->getFlash();
+            return $this->session->getFlash();
         }));
     }
 
