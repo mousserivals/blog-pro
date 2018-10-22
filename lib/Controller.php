@@ -25,9 +25,8 @@ abstract class Controller {
         $this->twig = new \Twig_Environment($loader, ['cache' => false, 'debug' => true]);
         $this->twig->addExtension(new \Twig_Extension_Debug());
         $this->twig->addFunction(new \Twig_SimpleFunction('session', function() {
-            return $this->session->getFlash();
+                return $this->session->getFlash();
         }));
-        
     }
 
     public function render($nameView, $params = []) {

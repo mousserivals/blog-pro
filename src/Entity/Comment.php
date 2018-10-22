@@ -10,6 +10,8 @@ class Comment extends Entity {
     public $postId;
     public $userId;
     public $content;
+    public $valided;
+    public $report;
     public $date;
 
     public static function dataStructure() {
@@ -38,6 +40,10 @@ class Comment extends Entity {
                     "type" => "boolean",
                     "property" => "valided"
                 ],
+                "report" => [
+                    "type" => "boolean",
+                    "property" => "report"
+                ],
                 "date_created" => [
                     "type" => "datetime",
                     "property" => "dateCreated"
@@ -65,6 +71,10 @@ class Comment extends Entity {
     function getValided() {
         return $this->valided;
     }
+    
+    function getReport() {
+        return $this->report;
+    }
 
     function getDateCreated() {
         return $this->dateCreated;
@@ -88,6 +98,10 @@ class Comment extends Entity {
 
     function setValided($valided) {
         $this->valided = $valided;
+    }
+
+    function setReport($report) {
+        $this->report = $report;
     }
 
     function setDateCreated($date) {

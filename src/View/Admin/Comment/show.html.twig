@@ -5,7 +5,7 @@
         <div class="col-lg-2">
             <div class="card" style="width: 18rem; margin-top: 130px;">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="/admin/post">Gestion des articles</a></li>
+                    <li class="list-group-item"><a href="/admin/post">Gestion des comments</a></li>
                     <li class="list-group-item"><a href="/admin/Category">Gestion des catégories</a></li>
                     <li class="list-group-item"><a href="/admin/Category/add">Ajouter une catégorie</a></li>
                 </ul>
@@ -14,31 +14,35 @@
         <div class="col-lg-8">
             <section class=" p-3  d-flex flex-column" id="blog">
                 <div class="my-auto">
-                    <h2 class="mb-5">Articles</h2>
+                    <h2 class="mb-5">Commentaire crée le {{comment.date_created | date}}</h2>
                     <div class="margin10bottom">
-                        <a href="/admin/post/edit/{{article.id}}" class="btn btn-info" > Modifier l'article </a> 
-                        <a href="/admin/post/delete/{{article.id}}" onclick="return confirm('Etes vous sûr de vouloir supprimer cette article ?')" class="btn btn-danger"  > Supprimer l'article </a>
+                        <a href="/admin/comment/edit/{{comment.0.id}}" class="btn btn-info" > Modifier le commentaire </a> 
+                        <a href="/admin/comment/delete/{{comment.0.id}}" onclick="return confirm('Etes vous sûr de vouloir supprimer ce commentaire ?')" class="btn btn-danger"  > Supprimer le commentaire </a>
                     </div> 
                     <table class="table">
                         <tbody>
                             <tr>
-                                <th>Categorie</th>
-                                <td>{{article.categoryId}}</td>
-                            </tr>
-                            <tr>
-                                <th>Titre</th>
-                                <td>{{article.title}}</td>
+                                <th>Auteur</th>
+                                <td>{{comment.0.username}}</td>
                             </tr>
                             <tr>
                                 <th>Contenu</th>
-                                <td>{{article.content}}</td>
+                                <td>{{comment.0.content}}</td>
                             </tr>
+                            <tr>
+                                <th>validé</th>
+                                <td>{% if comment.0.valided == 1 %}
+                                    <span class="badge badge-success">Oui</span>
+                                    {% else %}
+                                        <span class="badge badge-warning">Non</span>
+                                        {% endif %}</td>
+                                    </tr>
 
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
 
-                </div>
-            </section>   
-        </div>        
-    </div>        
-{% endblock %}
+                        </div>
+                    </section>   
+                </div>        
+            </div>        
+            {% endblock %}

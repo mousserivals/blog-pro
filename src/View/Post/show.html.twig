@@ -17,14 +17,16 @@
             {{ forms.comment()}}
     </section>   
     <section class="margin20" id="connent">   
-{#                {{ dump(comments) }}#}
+        {#                {{ dump(comments) }}#}
         {% for c in comments %}
             <div class="card border-secondary mb-3">
                 <div class="card-body text-secondary">
-                    <h5 class="card-title">{{c.username }} <span class="sub-title">Le {{ c.dateCreated | date("m/d/Y")}}</span></h5>
-                    <p class="card-text">{{ c.content }}</p>
+                    <h5 class="card-title">{{c.username }} <span class="sub-title">Le {{ c.dateCreated | date("m/d/Y")}}</span>
+                        <span class="float-right"><a id="btn_signaler" data-id="{{c.id }}" class="btn btn-warning"  >Signaler</a></span>
+                    </h5>
+                        <p class="card-text">{{ c.content }}</p>
                 </div>
             </div>
-    {% endfor %}   
-</section>       
+        {% endfor %}   
+    </section>       
 {% endblock %}    
